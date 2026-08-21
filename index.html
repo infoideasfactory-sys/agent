@@ -329,7 +329,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
       </div>
 
       <div style="text-align:center;font-size:10px;color:var(--txt3);padding:8px 0 20px;font-family:'JetBrains Mono',monospace;">
-        Προσωπικός Agent · v5
+        Προσωπικός Agent · v5.1
       </div>
     </div>
   </div>
@@ -412,11 +412,13 @@ const DRIVE_FILENAME   = 'personal-agent-data.json';
 const CLAUDE_MODEL     = 'claude-sonnet-4-6';
 const AUTOSYNC_MS      = 30000;
 
-const LS = { data:'agent_data_v4', chat:'agent_chat_v4', key:'agent_apikey_v4', gtok:'agent_gtok_v4' };
+const LS = { data:'agent_data_v4', chat:'agent_chat_v4', key:'agent_apikey_v4',
+             gtok:'agent_gtok_v5', gok:'agent_gconsent_v5' };
 let DB = { pay:[], books:[], notes:[], updatedAt:null };
 let chatHistory = [];
 let apiKey = '';
-let gToken = null, gTokenClient = null, driveFileId = null;
+let gToken = null, gTokenExp = 0, gTokenClient = null, driveFileId = null;
+let silentPending = null, silentResolve = null;
 let pushTimer = null, autoTimer = null, remindTimer = null;
 let isSyncing = false;
 
@@ -452,10 +454,52 @@ function loadLocal(){
 function saveChat(){ localStorage.setItem(LS.chat, JSON.stringify(chatHistory.slice(-40))); }
 function persist(){
   saveLocal();
-  if(!gToken) return;
+  if(!hasConsented()) return;
   clearTimeout(pushTimer);
   pushTimer=setTimeout(function(){ drivePush(true); },1500);
 }
+
+function saveToken(tok,expiresIn){
+  gToken=tok;
+  gTokenExp=Date.now()+((parseInt(expiresIn)||3600)-120)*1000;
+  try{ localStorage.setItem(LS.gtok, JSON.stringify({t:tok,e:gTokenExp})); }catch(e){}
+}
+function loadToken(){
+  try{
+    const raw=localStorage.getItem(LS.gtok);
+    if(!raw) return false;
+    const o=JSON.parse(raw);
+    if(!o.t || !o.e || Date.now()>=o.e) return false;
+    gToken=o.t; gTokenExp=o.e; return true;
+  }catch(e){ return false; }
+}
+function clearToken(){
+  gToken=null; gTokenExp=0;
+  try{ localStorage.removeItem(LS.gtok); }catch(e){}
+  try{ sessionStorage.removeItem(LS.gtok); }catch(e){}
+}
+// Ζητάει νέο token ΧΩΡΙΣ οθόνη επιβεβαίωσης. Το Google το δίνει σιωπηλά
+// εφόσον ο χρήστης έχει ήδη εγκρίνει την εφαρμογή μία φορά.
+function refreshTokenSilently(){
+  if(!gTokenClient) return Promise.resolve(false);
+  if(silentPending) return silentPending;
+  silentPending=new Promise(function(resolve){
+    silentResolve=resolve;
+    try{ gTokenClient.requestAccessToken({prompt:''}); }
+    catch(e){ silentPending=null; silentResolve=null; resolve(false); }
+    setTimeout(function(){
+      if(silentResolve){ silentResolve(false); silentPending=null; silentResolve=null; }
+    },12000);
+  });
+  return silentPending;
+}
+// Επιστρέφει έγκυρο token, ανανεώνοντάς το σιωπηλά αν χρειάζεται.
+async function ensureToken(){
+  if(gToken && Date.now()<gTokenExp) return true;
+  if(!gToken && !loadToken() && !hasConsented()) return false;
+  return await refreshTokenSilently();
+}
+function hasConsented(){ return localStorage.getItem(LS.gok)==='1'; }
 
 function initGoogle(){
   if(!(window.google && window.google.accounts && window.google.accounts.oauth2)){ setTimeout(initGoogle,400); return; }
@@ -463,57 +507,82 @@ function initGoogle(){
     client_id:GOOGLE_CLIENT_ID,
     scope:'https://www.googleapis.com/auth/drive.file',
     callback:function(resp){
-      if(resp.error){ setSync('err','Σφάλμα'); toast('❌ Αποτυχία σύνδεσης'); return; }
-      gToken=resp.access_token;
-      sessionStorage.setItem(LS.gtok,gToken);
-      updateDriveUI(); drivePull(); startAutoSync();
+      const ok = !resp.error && !!resp.access_token;
+      if(ok){
+        saveToken(resp.access_token, resp.expires_in);
+        localStorage.setItem(LS.gok,'1');
+        updateDriveUI(); drivePull(true); startAutoSync();
+      } else {
+        if(!silentResolve){ setSync('err','Σφάλμα'); toast('❌ Αποτυχία σύνδεσης'); }
+      }
+      if(silentResolve){ silentResolve(ok); silentPending=null; silentResolve=null; }
     }
   });
-  const cached=sessionStorage.getItem(LS.gtok);
-  if(cached){ gToken=cached; updateDriveUI(); drivePull(); startAutoSync(); }
+  if(loadToken()){
+    updateDriveUI(); drivePull(true); startAutoSync();
+  } else if(hasConsented()){
+    // Έχει ήδη δώσει άδεια παλιότερα — ανανέωση χωρίς ερώτηση.
+    updateDriveUI();
+    refreshTokenSilently().then(function(ok){ if(ok) startAutoSync(); });
+  }
 }
 function driveConnect(){
   if(!gTokenClient){ toast('Το Google δεν φόρτωσε ακόμα'); return; }
-  gTokenClient.requestAccessToken({prompt: gToken ? '' : 'consent'});
+  if(hasConsented()){ refreshTokenSilently(); return; }
+  gTokenClient.requestAccessToken({prompt:'consent'});
 }
 function driveDisconnect(){
-  gToken=null; driveFileId=null; sessionStorage.removeItem(LS.gtok);
+  clearToken(); driveFileId=null;
+  localStorage.removeItem(LS.gok);
   clearInterval(autoTimer); updateDriveUI(); toast('Αποσυνδέθηκες');
 }
 function updateDriveUI(){
-  const on=!!gToken;
+  const on=hasConsented();
   document.getElementById('driveBtn').textContent=on?'✅ Συνδεδεμένος':'Σύνδεση με Google';
   document.getElementById('driveStatusTxt').textContent=on
     ? 'Συνδεδεμένος. Αυτόματος συγχρονισμός κάθε 30 δευτερόλεπτα.'
     : 'Δεν είσαι συνδεδεμένος. Τα δεδομένα σώζονται μόνο τοπικά.';
   setSync(on?'on':'', on?'Drive':'Τοπικά');
 }
+// Κάθε κλήση στο Drive περνάει από εδώ. Αν το token έληξε, ανανεώνεται
+// σιωπηλά και η κλήση επαναλαμβάνεται — χωρίς να ενοχληθεί ο χρήστης.
+async function driveFetch(url,opts,retried){
+  opts=opts||{};
+  opts.headers=Object.assign({},opts.headers,{Authorization:'Bearer '+gToken});
+  const r=await fetch(url,opts);
+  if(r.status===401 && !retried){
+    const ok=await refreshTokenSilently();
+    if(ok) return driveFetch(url,opts,true);
+    updateDriveUI(); clearInterval(autoTimer);
+    throw new Error('Χρειάζεται νέα σύνδεση με Google');
+  }
+  return r;
+}
 async function driveFind(){
   if(driveFileId) return driveFileId;
   const q=encodeURIComponent("name='"+DRIVE_FILENAME+"' and trashed=false");
-  const r=await fetch('https://www.googleapis.com/drive/v3/files?q='+q+'&spaces=drive&fields=files(id)&pageSize=1',
-    {headers:{Authorization:'Bearer '+gToken}});
-  if(r.status===401){ gToken=null; updateDriveUI(); clearInterval(autoTimer); throw new Error('Έληξε η σύνδεση Google'); }
+  const r=await driveFetch('https://www.googleapis.com/drive/v3/files?q='+q+'&spaces=drive&fields=files(id)&pageSize=1');
   const j=await r.json();
   driveFileId=(j.files && j.files[0]) ? j.files[0].id : null;
   return driveFileId;
 }
 async function drivePush(quiet){
-  if(!gToken||isSyncing) return;
+  if(isSyncing) return;
+  if(!(await ensureToken())){ if(!quiet) toast('Σύνδεσου πρώτα με Google'); return; }
   isSyncing=true; setSync('sync','Sync…');
   try{
     const id=await driveFind();
     const body=JSON.stringify(DB);
     if(id){
-      await fetch('https://www.googleapis.com/upload/drive/v3/files/'+id+'?uploadType=media',{
-        method:'PATCH',headers:{Authorization:'Bearer '+gToken,'Content-Type':'application/json'},body:body});
+      await driveFetch('https://www.googleapis.com/upload/drive/v3/files/'+id+'?uploadType=media',{
+        method:'PATCH',headers:{'Content-Type':'application/json'},body:body});
     }else{
       const b='agentbnd'+Date.now();
       const meta={name:DRIVE_FILENAME,mimeType:'application/json'};
       const payload='--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n'+
                     '--'+b+'\r\nContent-Type: application/json\r\n\r\n'+body+'\r\n--'+b+'--';
-      const r=await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{
-        method:'POST',headers:{Authorization:'Bearer '+gToken,'Content-Type':'multipart/related; boundary='+b},body:payload});
+      const r=await driveFetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{
+        method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:payload});
       const j=await r.json();
       driveFileId=j.id;
     }
@@ -523,13 +592,13 @@ async function drivePush(quiet){
   isSyncing=false;
 }
 async function drivePull(quiet){
-  if(!gToken||isSyncing) return;
+  if(isSyncing) return;
+  if(!(await ensureToken())){ if(!quiet) toast('Σύνδεσου πρώτα με Google'); return; }
   isSyncing=true; setSync('sync','Sync…');
   try{
     const id=await driveFind();
     if(!id){ setSync('on','Drive'); isSyncing=false; await drivePush(true); return; }
-    const r=await fetch('https://www.googleapis.com/drive/v3/files/'+id+'?alt=media',
-      {headers:{Authorization:'Bearer '+gToken}});
+    const r=await driveFetch('https://www.googleapis.com/drive/v3/files/'+id+'?alt=media');
     const remote=await r.json();
     const rT=remote.updatedAt?new Date(remote.updatedAt).getTime():0;
     const lT=DB.updatedAt?new Date(DB.updatedAt).getTime():0;
@@ -547,12 +616,15 @@ async function drivePull(quiet){
 function startAutoSync(){
   clearInterval(autoTimer);
   autoTimer=setInterval(function(){
-    if(gToken && document.visibilityState==='visible') drivePull(true);
+    if(hasConsented() && document.visibilityState==='visible') drivePull(true);
   }, AUTOSYNC_MS);
 }
-async function syncNow(){ if(!gToken){ driveConnect(); return; } await drivePull(); }
+async function syncNow(){
+  if(!hasConsented()){ driveConnect(); return; }
+  await drivePull();
+}
 document.addEventListener('visibilitychange',function(){
-  if(document.visibilityState==='visible' && gToken) drivePull(true);
+  if(document.visibilityState==='visible' && hasConsented()) drivePull(true);
 });
 
 function saveApiKey(){
