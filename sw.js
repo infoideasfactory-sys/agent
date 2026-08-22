@@ -1,4 +1,4 @@
-const CACHE = 'agent-v5b';
+const CACHE = 'agent-v6';
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -13,9 +13,24 @@ self.addEventListener('activate', e => {
   );
 });
 
+// Πάτημα ειδοποίησης → φέρνει την εφαρμογή μπροστά
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+      for (const c of list) {
+        if ('focus' in c) {
+          c.postMessage({ type: 'open-note', id: e.notification.tag });
+          return c.focus();
+        }
+      }
+      if (self.clients.openWindow) return self.clients.openWindow('./');
+    })
+  );
+});
+
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
-  // Never cache API traffic (Claude, Google) — always go to network
   if (url.hostname.includes('anthropic.com') ||
       url.hostname.includes('googleapis.com') ||
       url.hostname.includes('google.com')) {
