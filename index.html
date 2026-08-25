@@ -258,7 +258,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
     <div class="sec-head">
       <h2 id="noteCount">—</h2>
       <div class="head-right">
-        <button class="sort-btn" id="noteSortBtn" onclick="toggleNoteSort()">↑ Πρόσφατα</button>
+        <button class="sort-btn" id="noteSortBtn" onclick="toggleNoteSort()">↓ Πρόσφατα</button>
         <button class="add-btn" onclick="openNoteModal()">+ Σημείωση</button>
       </div>
     </div>
@@ -339,7 +339,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
       </div>
 
       <div style="text-align:center;font-size:10px;color:var(--txt3);padding:8px 0 20px;font-family:'JetBrains Mono',monospace;">
-        Προσωπικός Agent · v7
+        Προσωπικός Agent · v7.1
       </div>
     </div>
   </div>
@@ -1155,7 +1155,9 @@ function savePay(){
   if(id) DB.pay=DB.pay.map(function(o){return o.id===id?ob:o;}); else DB.pay.push(ob);
   persist();
   payFilter='all'; payCatFilter='all';     // αλλιώς μπορεί να μη φαίνεται
-  flashId=ob.id; renderPay(); closeModal('payModal');
+  closeModal('payModal');
+  flashId=ob.id;
+  setTimeout(function(){ renderPay(); },230);
   toast(id?'✅ Ενημερώθηκε':'✅ Αποθηκεύτηκε');
 }
 function markPayPaid(id){
@@ -1182,19 +1184,11 @@ function deletePay(id){
 // ══════ ΣΗΜΕΙΩΣΕΙΣ ══════
 let noteSortAsc=true, noteCatFilter='all';
 // Δύο ομάδες: μελλοντικές υπενθυμίσεις πρώτα, μετά ό,τι γράφτηκε τελευταίο
+// Απλή σειρά: ό,τι πειράχτηκε τελευταίο, πρώτο.
+// asc=true → νεότερα πρώτα («Πρόσφατα»), asc=false → παλαιότερα πρώτα.
 function sortNotes(list, asc){
-  const now=Date.now();
-  const A=[], B=[];
-  list.forEach(function(n){
-    if(n.remindAt && new Date(n.remindAt).getTime()>now) A.push(n); else B.push(n);
-  });
-  A.sort(function(a,b){
-    return asc ? new Date(a.remindAt)-new Date(b.remindAt) : new Date(b.remindAt)-new Date(a.remindAt);
-  });
-  B.sort(function(a,b){
-    return new Date(b.updatedAt||b.createdAt)-new Date(a.updatedAt||a.createdAt);
-  });
-  return A.concat(B);
+  const k=function(n){ return new Date(n.updatedAt||n.createdAt).getTime(); };
+  return list.sort(function(a,b){ return asc ? k(b)-k(a) : k(a)-k(b); });
 }
 function setNoteCat(c){ noteCatFilter=c; renderNotes(); }
 function openNoteCats(){
@@ -1204,12 +1198,12 @@ function openNoteCats(){
 }
 function toggleNoteSort(){
   noteSortAsc=!noteSortAsc;
-  document.getElementById('noteSortBtn').textContent=noteSortAsc?'↑ Πρόσφατα':'↓ Μελλοντικά';
+  document.getElementById('noteSortBtn').textContent=noteSortAsc?'↓ Πρόσφατα':'↑ Παλαιότερα';
   renderNotes();
 }
 function renderNotes(){
   document.getElementById('noteCatFilters').innerHTML=buildFilterBar('nm',
-    [{v:'all',t:'Όλες'},{v:'__remind',t:'🔔 Με υπενθύμιση'},{v:'__none',t:'Χωρίς κατηγορία'}],
+    [{v:'all',t:'Όλες'},{v:'__remind',t:'🔔 Με υπενθύμιση'}],
     noteCatFilter, 'setNoteCat','openNoteCats');
 
   let items=sortNotes(DB.notes.slice(), noteSortAsc);
@@ -1279,7 +1273,9 @@ function saveNote(){
   if(id) DB.notes=DB.notes.map(function(o){return o.id===id?n:o;}); else DB.notes.push(n);
   persist();
   noteCatFilter='all';
-  flashId=n.id; renderNotes(); closeModal('noteModal');
+  closeModal('noteModal');
+  flashId=n.id;
+  setTimeout(function(){ renderNotes(); },230);   // αφού φύγει το παράθυρο
   toast(id?'✅ Ενημερώθηκε':'✅ Αποθηκεύτηκε');
   if(remindAt) calUpsert(n);
   else if(n.calId) calDelete(n).then(function(){ saveLocal(false); renderNotes(); });
