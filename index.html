@@ -75,17 +75,19 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;
 .summary-pill{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:5px 12px;font-size:11px;color:var(--txt2);}
 .summary-pill strong{color:var(--txt);font-weight:600;}
 .summary-pill.red strong{color:var(--danger);} .summary-pill.yellow strong{color:var(--warn);}
-.filter-row{display:flex;gap:6px;padding:9px 12px 0;flex-shrink:0;overflow-x:auto;}
+.filter-row{display:flex;gap:6px;padding:9px 12px 0;flex-shrink:0;overflow-x:auto;align-items:center;}
 .filter-row::-webkit-scrollbar{display:none;}
+@media (min-width:700px){ .filter-row{flex-wrap:wrap;overflow-x:visible;} }
 .filt{background:var(--s2);border:1px solid var(--border);border-radius:15px;padding:4px 12px;font-size:11px;color:var(--txt3);cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .filt.active{background:var(--acc);border-color:var(--acc);color:#fff;}
+.filt.more{border-style:dashed;color:var(--txt2);}
 
 .ob-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;cursor:pointer;margin-bottom:7px;}
 .ob-card.overdue{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.04);}
 .ob-card.soon{border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.03);}
 .ob-card.paid{opacity:.42;}
-.ob-card.flash{animation:flash 1.4s ease-out;}
-@keyframes flash{0%,40%{border-color:var(--acc);box-shadow:0 0 0 2px rgba(91,110,245,.28);}100%{}}
+.ob-card.flash,.note-card.flash{animation:flash 1.8s ease-out;}
+@keyframes flash{0%,45%{border-color:var(--acc);box-shadow:0 0 0 2px rgba(91,110,245,.3);}100%{}}
 .ob-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px;}
 .ob-title{font-size:13px;font-weight:500;flex:1;}
 .ob-card.paid .ob-title{text-decoration:line-through;color:var(--txt3);}
@@ -93,24 +95,24 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;
 .ob-card.overdue .ob-amt{color:var(--danger);} .ob-card.soon .ob-amt{color:var(--warn);}
 .ob-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
 .ob-date{font-size:11px;color:var(--txt3);font-family:'JetBrains Mono',monospace;}
-.ob-cat{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--s3);color:var(--txt3);border:1px solid var(--border);}
 .ob-days{font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;margin-left:auto;}
 .ob-days.red{color:var(--danger);} .ob-days.yellow{color:var(--warn);} .ob-days.green{color:var(--ok);}
 .ob-actions{display:flex;gap:5px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);flex-wrap:wrap;}
 .act-btn{flex:1;min-width:74px;padding:6px 8px;border-radius:6px;font-size:10.5px;font-weight:500;border:1px solid var(--border);background:var(--s3);color:var(--txt2);cursor:pointer;font-family:'Inter',sans-serif;}
 
+.tagrow{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:6px;}
+.cat-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(91,110,245,.14);color:#818cf8;border:1px solid rgba(91,110,245,.3);}
+.cat-tag.first{background:rgba(91,110,245,.26);font-weight:600;}
+.remind-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.3);font-family:'JetBrains Mono',monospace;}
+.cal-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(16,185,129,.12);color:#34d399;border:1px solid rgba(16,185,129,.3);}
+
 .note-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:8px;}
 .note-card.has-remind{border-color:rgba(91,110,245,.4);}
 .note-card.remind-due{border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.04);}
-.note-card.flash{animation:flash 1.4s ease-out;}
 .note-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;}
 .note-title{font-size:13px;font-weight:500;}
 .note-date{font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace;white-space:nowrap;}
 .note-body{font-size:12px;color:var(--txt2);line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;}
-.note-tagrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:7px;}
-.cat-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(91,110,245,.14);color:#818cf8;border:1px solid rgba(91,110,245,.3);}
-.remind-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.3);font-family:'JetBrains Mono',monospace;}
-.cal-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(16,185,129,.12);color:#34d399;border:1px solid rgba(16,185,129,.3);}
 .note-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;}
 
 .sec-head{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 9px;flex-shrink:0;gap:8px;}
@@ -161,6 +163,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
 
 .mbg{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(4px);z-index:300;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:14px;}
 .mbg.open{opacity:1;pointer-events:all;}
+.mbg.top{z-index:360;}
 .modal{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:20px;width:430px;max-width:100%;max-height:88dvh;overflow-y:auto;transform:translateY(16px);transition:transform .2s;}
 .mbg.open .modal{transform:translateY(0);}
 .modal h3{font-size:15px;font-weight:600;margin-bottom:16px;}
@@ -174,12 +177,23 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
 .modal-acts{display:flex;gap:8px;margin-top:16px;}
 .btn-pri{flex:1;padding:11px;background:var(--acc);border:none;border-radius:var(--r2);color:#fff;font-size:13.5px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
 .btn-sec{padding:11px 18px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);color:var(--txt2);font-size:13.5px;cursor:pointer;font-family:'Inter',sans-serif;}
-.newcat{margin-top:7px;display:none;}
-.newcat.show{display:block;}
-.sugg{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
-.sugg-chip{background:var(--s3);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-size:11px;color:var(--txt2);cursor:pointer;}
-.sugg-chip:active{border-color:var(--acc);color:var(--acc);}
 .hint{font-size:10.5px;color:var(--txt3);margin-top:5px;line-height:1.45;}
+
+/* επιλογέας κατηγοριών */
+.catbox{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);padding:9px 10px;min-height:44px;cursor:pointer;display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
+.catbox:active{border-color:var(--acc);}
+.catbox .ph{color:var(--txt3);font-size:13px;}
+.pick-list{max-height:44dvh;overflow-y:auto;margin:-4px -4px 0;padding:4px;}
+.pick-list::-webkit-scrollbar{width:4px;} .pick-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.pick{display:flex;align-items:center;gap:9px;padding:9px 10px;border:1px solid var(--border);background:var(--s2);border-radius:var(--r2);margin-bottom:5px;cursor:pointer;}
+.pick.sel{border-color:var(--acc);background:rgba(91,110,245,.1);}
+.pick-box{width:19px;height:19px;border-radius:5px;border:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;}
+.pick.sel .pick-box{background:var(--acc);border-color:var(--acc);}
+.pick-name{flex:1;font-size:13px;}
+.pick-num{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--acc);background:rgba(91,110,245,.16);border-radius:9px;padding:2px 7px;}
+.pick-cnt{font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace;}
+.mini{width:28px;height:28px;border:1px solid var(--border);background:var(--s3);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;flex-shrink:0;}
+.mini.on{border-color:var(--acc);background:rgba(91,110,245,.18);}
 
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:9px 18px;font-size:12px;color:var(--txt);z-index:500;opacity:0;transition:all .3s;pointer-events:none;max-width:90vw;text-align:center;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
@@ -229,12 +243,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
 
   <div class="panel" id="panel-payments">
     <div class="pay-toprow" id="paySummary"></div>
-    <div class="filter-row">
-      <div class="filt active" onclick="setPayFilter('all',this)">Όλα</div>
-      <div class="filt" onclick="setPayFilter('overdue',this)">⚠️ Ληγμένα</div>
-      <div class="filt" onclick="setPayFilter('soon',this)">🔔 Σύντομα</div>
-      <div class="filt" onclick="setPayFilter('paid',this)">✅ Πληρωμένα</div>
-    </div>
+    <div class="filter-row" id="payFilters"></div>
     <div class="sec-head">
       <h2 id="payCount">—</h2>
       <div class="head-right">
@@ -281,6 +290,13 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
   <div class="panel" id="panel-settings">
     <div class="panel-body">
       <div class="setting-block">
+        <h4>🏷️ Κατηγορίες</h4>
+        <p>Καρφίτσωσε, μετονόμασε ή διάγραψε. Οι εγγραφές δεν χάνονται ποτέ.</p>
+        <button class="wide-btn" onclick="openCatMgr('nm')">📝 Κατηγορίες σημειώσεων</button>
+        <button class="wide-btn" onclick="openCatMgr('pm')">💳 Κατηγορίες πληρωμών</button>
+      </div>
+
+      <div class="setting-block">
         <h4>🔑 Claude API Key</h4>
         <p>Χρειάζεται για τον AI assistant. Αποθηκεύεται μόνο σε αυτή τη συσκευή.</p>
         <div class="frow" style="margin-bottom:8px;"><input type="password" id="set_apikey" placeholder="sk-ant-…"></div>
@@ -305,7 +321,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
           <span>📅 Υπενθυμίσεις στο Google Calendar</span>
           <div class="sw" id="calSw" onclick="toggleCal()"></div>
         </div>
-        <p class="hint" style="margin:0;">Με το Calendar χτυπάει το κινητό <strong>ακόμα κι αν η εφαρμογή είναι κλειστή</strong>. Χωρίς αυτό, η ειδοποίηση έρχεται μόνο όσο η εφαρμογή είναι ανοιχτή.</p>
+        <p class="hint" style="margin:0;">Με το Calendar χτυπάει το κινητό <strong>ακόμα κι αν η εφαρμογή είναι κλειστή</strong>.</p>
       </div>
 
       <div class="setting-block">
@@ -323,7 +339,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
       </div>
 
       <div style="text-align:center;font-size:10px;color:var(--txt3);padding:8px 0 20px;font-family:'JetBrains Mono',monospace;">
-        Προσωπικός Agent · v6
+        Προσωπικός Agent · v7
       </div>
     </div>
   </div>
@@ -346,20 +362,15 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
   <div class="frow"><label>Τίτλος</label><input id="pm_title" placeholder="π.χ. ΔΕΗ Σεπτεμβρίου"></div>
   <div class="f2">
     <div class="frow"><label>Ποσό (€)</label><input type="number" inputmode="decimal" id="pm_amt" placeholder="0.00" step="0.01"></div>
-    <div class="frow"><label>Κατηγορία</label>
-      <select id="pm_cat" onchange="onCatChange('pm')"></select>
-      <div class="newcat" id="pm_newcat">
-        <input id="pm_catnew" placeholder="Όνομα νέας κατηγορίας" oninput="onCatType('pm')" autocomplete="off">
-        <div class="sugg" id="pm_sugg"></div>
-      </div>
-    </div>
-  </div>
-  <div class="f2">
     <div class="frow"><label>Ημερομηνία λήξης</label><input type="date" id="pm_date"></div>
-    <div class="frow"><label>Επανάληψη</label><select id="pm_rep">
-      <option value="none">Μία φορά</option><option value="monthly">Μηνιαία</option>
-      <option value="quarterly">Τριμηνιαία</option><option value="yearly">Ετήσια</option></select></div>
   </div>
+  <div class="frow"><label>Κατηγορίες</label>
+    <div class="catbox" id="pm_catbox" onclick="openPicker('pm')"></div>
+    <div class="hint">Η <strong>πρώτη</strong> κατηγορία μετράει στα οικονομικά της Σύνοψης.</div>
+  </div>
+  <div class="frow"><label>Επανάληψη</label><select id="pm_rep">
+    <option value="none">Μία φορά</option><option value="monthly">Μηνιαία</option>
+    <option value="quarterly">Τριμηνιαία</option><option value="yearly">Ετήσια</option></select></div>
   <div class="frow"><label>Σημειώσεις</label><input id="pm_notes" placeholder="Προαιρετικά…"></div>
   <div class="modal-acts"><button class="btn-sec" onclick="closeModal('payModal')">Ακύρωση</button>
     <button class="btn-pri" onclick="savePay()">💾 Αποθήκευση</button></div>
@@ -369,18 +380,40 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
   <h3 id="noteModalTitle">📝 Νέα Σημείωση</h3>
   <input type="hidden" id="nm_id">
   <div class="frow"><label>Τίτλος (προαιρετικό)</label><input id="nm_title" placeholder="Χωρίς τίτλο"></div>
-  <div class="frow"><label>Κατηγορία</label>
-    <select id="nm_cat" onchange="onCatChange('nm')"></select>
-    <div class="newcat" id="nm_newcat">
-      <input id="nm_catnew" placeholder="Όνομα νέας κατηγορίας" oninput="onCatType('nm')" autocomplete="off">
-      <div class="sugg" id="nm_sugg"></div>
-    </div>
-  </div>
+  <div class="frow"><label>Κατηγορίες</label>
+    <div class="catbox" id="nm_catbox" onclick="openPicker('nm')"></div></div>
   <div class="frow"><label>Υπενθύμιση (προαιρετικό)</label><input type="datetime-local" id="nm_remind">
     <div class="hint" id="nm_calhint"></div></div>
   <div class="frow"><label>Κείμενο</label><textarea id="nm_body" placeholder="Γράψε ό,τι θέλεις…" style="min-height:120px;"></textarea></div>
   <div class="modal-acts"><button class="btn-sec" onclick="closeModal('noteModal')">Ακύρωση</button>
     <button class="btn-pri" onclick="saveNote()">💾 Αποθήκευση</button></div>
+</div></div>
+
+<div class="mbg top" id="pickModal"><div class="modal">
+  <h3 id="pickTitle">🏷️ Κατηγορίες</h3>
+  <div class="frow" style="margin-bottom:9px;">
+    <input id="pickSearch" placeholder="Ψάξε ή γράψε νέα…" oninput="renderPicker()" autocomplete="off">
+  </div>
+  <div id="pickNew"></div>
+  <div class="pick-list" id="pickList"></div>
+  <div class="hint" id="pickHint"></div>
+  <div class="modal-acts"><button class="btn-sec" onclick="closeModal('pickModal')">Άκυρο</button>
+    <button class="btn-pri" onclick="applyPicker()">✓ Εντάξει</button></div>
+</div></div>
+
+<div class="mbg top" id="mgrModal"><div class="modal">
+  <h3 id="mgrTitle">🏷️ Διαχείριση κατηγοριών</h3>
+  <div class="pick-list" id="mgrList"></div>
+  <div class="hint">📌 καρφιτσώνει στη μπάρα · ✏️ μετονομάζει παντού · 🗑️ αφαιρεί (οι εγγραφές μένουν)</div>
+  <div class="modal-acts"><button class="btn-pri" onclick="closeModal('mgrModal')">Κλείσιμο</button></div>
+</div></div>
+
+<div class="mbg top" id="filtModal"><div class="modal">
+  <h3>🏷️ Όλες οι κατηγορίες</h3>
+  <div class="pick-list" id="filtList"></div>
+  <div class="modal-acts">
+    <button class="btn-sec" onclick="closeModal('filtModal');openCatMgr('nm')">⚙️ Διαχείριση</button>
+    <button class="btn-pri" onclick="closeModal('filtModal')">Κλείσιμο</button></div>
 </div></div>
 
 <div class="toast" id="toast"></div>
@@ -391,6 +424,7 @@ const GOOGLE_CLIENT_ID = '1075164265841-iajiddsmrp2a92a2uhvilvctirjl9ko4.apps.go
 const DRIVE_FILENAME   = 'personal-agent-data.json';
 const CLAUDE_MODEL     = 'claude-sonnet-4-6';
 const AUTOSYNC_MS      = 30000;
+const MAX_PINNED       = 5;
 const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/calendar.events';
 
 const LS = { data:'agent_data_v4', chat:'agent_chat_v4', key:'agent_apikey_v4',
@@ -400,7 +434,7 @@ const DEFAULT_PAY_CATS = ['εφορία','ΔΕΗ / Ρεύμα','ασφάλεια
   'τηλεφωνία','προμηθευτής','αυτοκίνητο','βενζίνη','προσωπικά','συνδρομές',
   'αναλώσιμα','αγορές γραφείου','άλλο'];
 
-let DB = { pay:[], notes:[], updatedAt:null };
+let DB = { pay:[], notes:[], pinnedCats:[], pinnedPayCats:[], updatedAt:null };
 let chatHistory = [];
 let apiKey = '';
 let gToken = null, gTokenExp = 0, gTokenClient = null, driveFileId = null;
@@ -408,6 +442,7 @@ let silentPending = null, silentResolve = null;
 let pushTimer = null, autoTimer = null, remindTimer = null;
 let isSyncing = false;
 let calEnabled = true;
+let flashId = null;
 
 const genId = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
 const pad2 = x => String(x).padStart(2,'0');
@@ -417,6 +452,7 @@ const fmtDate = s => s ? new Date(s+'T00:00:00').toLocaleDateString('el-GR',{day
 const fmtDT = s => s ? new Date(s).toLocaleString('el-GR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
 const fmtAmt = a => (!a && a!==0) ? '—' : '€' + parseFloat(a).toFixed(2).replace(/\.00$/,'');
 const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const jq = s => String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
 function toast(m,d=2600){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),d);}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 function setSync(state,text){
@@ -426,8 +462,6 @@ function setSync(state,text){
 }
 
 // ══════ ΗΜΕΡΟΜΗΝΙΕΣ ══════
-// Προσθέτει μήνες κρατώντας την ημέρα, με περιορισμό στην τελευταία του μήνα.
-// 31 Ιαν +1 → 28 Φεβ (όχι 3 Μαρτίου, όπως έκανε το setMonth)
 function addMonths(dateStr, n){
   const d=new Date(dateStr+'T00:00:00');
   const day=d.getDate();
@@ -437,13 +471,17 @@ function addMonths(dateStr, n){
   return t.getFullYear()+'-'+pad2(t.getMonth()+1)+'-'+pad2(t.getDate());
 }
 
-// ══════ ΚΑΤΗΓΟΡΙΕΣ (κοινός κώδικας) ══════
-// Τόνοι, κεφαλαία, διαλυτικά και τελικό σίγμα θεωρούνται ίδια.
+// ══════ ΚΑΤΗΓΟΡΙΕΣ ══════
 function normCat(s){
   return String(s||'').trim().toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/ς/g,'σ')
-    .replace(/\s+/g,' ');
+    .replace(/ς/g,'σ').replace(/\s+/g,' ');
+}
+// Δέχεται πίνακα, ή παλιό string με κόμματα ('αγορες, super market')
+function splitCats(v){
+  if(Array.isArray(v)) return v.map(function(s){return String(s).trim();}).filter(Boolean);
+  if(!v) return [];
+  return String(v).split(',').map(function(s){return s.trim();}).filter(Boolean);
 }
 function dedupeCats(list){
   const seen={}, out=[];
@@ -456,69 +494,211 @@ function dedupeCats(list){
   return out;
 }
 function payCategories(){
-  const used=DB.pay.map(function(o){return o.category;});
+  let used=[]; DB.pay.forEach(function(o){ used=used.concat(o.cats||[]); });
   return dedupeCats(DEFAULT_PAY_CATS.concat(used));
 }
 function noteCategories(){
-  return dedupeCats(DB.notes.map(function(n){return n.category;}))
-    .sort(function(a,b){return a.localeCompare(b,'el');});
+  let used=[]; DB.notes.forEach(function(n){ used=used.concat(n.cats||[]); });
+  return dedupeCats(used).sort(function(a,b){return a.localeCompare(b,'el');});
 }
-// Αν υπάρχει ήδη ισοδύναμη κατηγορία, επιστρέφει ΕΚΕΙΝΗ τη γραφή.
+function catsFor(kind){ return kind==='pm' ? payCategories() : noteCategories(); }
+function itemsFor(kind){ return kind==='pm' ? DB.pay : DB.notes; }
+function pinnedFor(kind){
+  if(kind==='pm'){ DB.pinnedPayCats=DB.pinnedPayCats||[]; return DB.pinnedPayCats; }
+  DB.pinnedCats=DB.pinnedCats||[]; return DB.pinnedCats;
+}
+// Αν υπάρχει ισοδύναμη, επιστρέφει ΕΚΕΙΝΗ τη γραφή
 function resolveCat(input, list){
   const k=normCat(input);
   if(!k) return null;
   for(let i=0;i<list.length;i++){ if(normCat(list[i])===k) return list[i]; }
   return String(input).trim();
 }
-function catsFor(kind){ return kind==='pm' ? payCategories() : noteCategories(); }
+function catCount(kind, cat){
+  const k=normCat(cat);
+  return itemsFor(kind).filter(function(x){
+    return (x.cats||[]).some(function(c){return normCat(c)===k;});
+  }).length;
+}
+function hasCat(item, cat){
+  const k=normCat(cat);
+  return (item.cats||[]).some(function(c){return normCat(c)===k;});
+}
 
-function fillCatSelect(kind, current){
-  const sel=document.getElementById(kind+'_cat');
-  const cats=catsFor(kind);
-  let html = kind==='nm' ? '<option value="">— χωρίς κατηγορία —</option>' : '';
-  cats.forEach(function(c){ html+='<option value="'+esc(c)+'">'+esc(c)+'</option>'; });
-  html+='<option value="__new">➕ Νέα κατηγορία…</option>';
-  sel.innerHTML=html;
-  const match = current ? resolveCat(current, cats) : null;
-  sel.value = (match && normCat(match)===normCat(current)) ? match : (kind==='nm' ? '' : 'άλλο');
-  document.getElementById(kind+'_newcat').classList.remove('show');
-  document.getElementById(kind+'_catnew').value='';
-  document.getElementById(kind+'_sugg').innerHTML='';
+// ── ΜΕΤΑΠΤΩΣΗ: category (string) → cats (πίνακας) ──
+function migrateCats(){
+  let changed=false;
+  [['nm',DB.notes],['pm',DB.pay]].forEach(function(pair){
+    pair[1].forEach(function(x){
+      if(x.category!==undefined || !Array.isArray(x.cats)){
+        const src = Array.isArray(x.cats) ? x.cats : x.category;
+        x.cats = dedupeCats(splitCats(src));
+        delete x.category;
+        changed=true;
+      }
+    });
+  });
+  // ενοποίηση γραφών: «αγορες» → «Αγορες»
+  [['nm',DB.notes],['pm',DB.pay]].forEach(function(pair){
+    const canon=catsFor(pair[0]);
+    pair[1].forEach(function(x){
+      const fixed=dedupeCats((x.cats||[]).map(function(c){return resolveCat(c,canon)||c;}));
+      if(fixed.join('|')!==(x.cats||[]).join('|')){ x.cats=fixed; changed=true; }
+    });
+  });
+  if(!Array.isArray(DB.pinnedCats)){ DB.pinnedCats=[]; changed=true; }
+  if(!Array.isArray(DB.pinnedPayCats)){ DB.pinnedPayCats=[]; changed=true; }
+  if(changed) saveLocal(false);
 }
-function onCatChange(kind){
-  const sel=document.getElementById(kind+'_cat');
-  const box=document.getElementById(kind+'_newcat');
-  if(sel.value==='__new'){
-    box.classList.add('show');
-    setTimeout(function(){document.getElementById(kind+'_catnew').focus();},60);
-  } else {
-    box.classList.remove('show');
+
+// ── Επιλογέας πολλαπλών κατηγοριών ──
+let pickKind='nm', pickSel=[];
+function catboxHtml(cats, kind){
+  if(!cats || !cats.length) return '<span class="ph">Πάτησε για επιλογή…</span>';
+  return cats.map(function(c,i){
+    return '<span class="cat-tag'+(i===0&&kind==='pm'?' first':'')+'">'+
+      (i===0&&kind==='pm'?'★ ':'')+esc(c)+'</span>';
+  }).join('');
+}
+function refreshCatbox(kind){
+  document.getElementById(kind+'_catbox').innerHTML=catboxHtml(pickSel.slice(), kind);
+}
+function openPicker(kind){
+  pickKind=kind;
+  document.getElementById('pickTitle').textContent = kind==='pm' ? '🏷️ Κατηγορίες πληρωμής' : '🏷️ Κατηγορίες σημείωσης';
+  document.getElementById('pickHint').innerHTML = kind==='pm'
+    ? 'Η σειρά μετράει: η <strong>πρώτη</strong> επιλογή μπαίνει στα οικονομικά. Πάτα ξανά για αφαίρεση.'
+    : 'Διάλεξε όσες θέλεις. Πάτα ξανά για αφαίρεση.';
+  document.getElementById('pickSearch').value='';
+  renderPicker();
+  document.getElementById('pickModal').classList.add('open');
+}
+function renderPicker(){
+  const q=document.getElementById('pickSearch').value.trim();
+  const qn=normCat(q);
+  const all=catsFor(pickKind);
+  const shown=qn ? all.filter(function(c){return normCat(c).indexOf(qn)!==-1;}) : all;
+
+  const exists = qn && all.some(function(c){return normCat(c)===qn;});
+  document.getElementById('pickNew').innerHTML = (q && !exists)
+    ? '<div class="pick" onclick="addNewCat()"><div class="pick-box">＋</div>'+
+      '<div class="pick-name">Νέα κατηγορία «'+esc(q)+'»</div></div>'
+    : '';
+
+  document.getElementById('pickList').innerHTML = shown.length
+    ? shown.map(function(c){
+        const idx=pickSel.findIndex(function(s){return normCat(s)===normCat(c);});
+        const sel=idx>-1;
+        return '<div class="pick '+(sel?'sel':'')+'" onclick="togglePick(\''+jq(c)+'\')">'+
+          '<div class="pick-box">'+(sel?'✓':'')+'</div>'+
+          '<div class="pick-name">'+esc(c)+'</div>'+
+          (sel?'<span class="pick-num">'+(idx+1)+'</span>':'')+
+          '<span class="pick-cnt">'+catCount(pickKind,c)+'</span></div>';
+      }).join('')
+    : '<div class="hint" style="padding:10px 2px;">Καμία κατηγορία ακόμα. Γράψε πάνω για να φτιάξεις.</div>';
+}
+function togglePick(c){
+  const i=pickSel.findIndex(function(s){return normCat(s)===normCat(c);});
+  if(i>-1) pickSel.splice(i,1); else pickSel.push(c);
+  renderPicker();
+}
+function addNewCat(){
+  const q=document.getElementById('pickSearch').value.trim();
+  if(!q) return;
+  const c=resolveCat(q, catsFor(pickKind));
+  if(!pickSel.some(function(s){return normCat(s)===normCat(c);})) pickSel.push(c);
+  document.getElementById('pickSearch').value='';
+  renderPicker();
+}
+function applyPicker(){
+  refreshCatbox(pickKind);
+  closeModal('pickModal');
+}
+
+// ── Διαχείριση: καρφίτσωμα, μετονομασία, διαγραφή ──
+let mgrKind='nm';
+function openCatMgr(kind){
+  mgrKind=kind;
+  document.getElementById('mgrTitle').textContent =
+    kind==='pm' ? '💳 Κατηγορίες πληρωμών' : '📝 Κατηγορίες σημειώσεων';
+  renderMgr();
+  document.getElementById('mgrModal').classList.add('open');
+}
+function renderMgr(){
+  const cats=catsFor(mgrKind);
+  const pin=pinnedFor(mgrKind);
+  document.getElementById('mgrList').innerHTML = cats.length
+    ? cats.map(function(c){
+        const isPin=pin.some(function(p){return normCat(p)===normCat(c);});
+        return '<div class="pick">'+
+          '<div class="mini '+(isPin?'on':'')+'" onclick="togglePin(\''+jq(c)+'\')">📌</div>'+
+          '<div class="pick-name">'+esc(c)+'</div>'+
+          '<span class="pick-cnt">'+catCount(mgrKind,c)+'</span>'+
+          '<div class="mini" onclick="renameCat(\''+jq(c)+'\')">✏️</div>'+
+          '<div class="mini" onclick="deleteCat(\''+jq(c)+'\')">🗑️</div></div>';
+      }).join('')
+    : '<div class="hint" style="padding:10px 2px;">Καμία κατηγορία ακόμα.</div>';
+}
+function togglePin(c){
+  const pin=pinnedFor(mgrKind);
+  const i=pin.findIndex(function(p){return normCat(p)===normCat(c);});
+  if(i>-1) pin.splice(i,1);
+  else {
+    if(pin.length>=MAX_PINNED){ toast('Το πολύ '+MAX_PINNED+' καρφιτσωμένες'); return; }
+    pin.push(c);
   }
+  persist(); renderMgr(); renderAll();
 }
-// Καθώς γράφει, προτείνει υπάρχουσες που ξεκινούν έτσι
-function onCatType(kind){
-  const v=document.getElementById(kind+'_catnew').value;
-  const box=document.getElementById(kind+'_sugg');
-  const k=normCat(v);
-  if(!k){ box.innerHTML=''; return; }
-  const hits=catsFor(kind).filter(function(c){ return normCat(c).indexOf(k)===0; }).slice(0,6);
-  if(!hits.length){ box.innerHTML='<span class="hint">Νέα κατηγορία — δεν υπάρχει κάτι παρόμοιο.</span>'; return; }
-  box.innerHTML='<span class="hint" style="width:100%">Υπάρχει ήδη — πάτησε για να τη διαλέξεις:</span>'+
-    hits.map(function(c){
-      return '<span class="sugg-chip" onclick="pickCat(\''+kind+'\',\''+esc(c).replace(/'/g,"\\'")+'\')">'+esc(c)+'</span>';
-    }).join('');
+function renameCat(oldName){
+  const input=prompt('Νέο όνομα για «'+oldName+'»:', oldName);
+  if(input===null) return;
+  const nn=input.trim();
+  if(!nn){ toast('Το όνομα δεν μπορεί να είναι κενό'); return; }
+  if(normCat(nn)===normCat(oldName)){
+    applyRename(oldName, nn); return;      // μόνο αλλαγή γραφής
+  }
+  const existing=catsFor(mgrKind).filter(function(c){return normCat(c)===normCat(nn);})[0];
+  if(existing){
+    const n1=catCount(mgrKind,oldName);
+    if(!confirm('Υπάρχει ήδη «'+existing+'».\n\nΝα ενωθούν; '+n1+
+      ' εγγραφές θα μεταφερθούν εκεί.')) return;
+    applyRename(oldName, existing);
+    toast('Ενώθηκαν σε «'+existing+'»');
+    return;
+  }
+  applyRename(oldName, nn);
+  toast('Μετονομάστηκε σε «'+nn+'»');
 }
-function pickCat(kind, c){
-  fillCatSelect(kind, c);
-  toast('Επιλέχθηκε: '+c);
+function applyRename(oldName, newName){
+  const k=normCat(oldName);
+  itemsFor(mgrKind).forEach(function(x){
+    if(!x.cats) return;
+    x.cats=dedupeCats(x.cats.map(function(c){ return normCat(c)===k ? newName : c; }));
+  });
+  const pin=pinnedFor(mgrKind);
+  for(let i=0;i<pin.length;i++) if(normCat(pin[i])===k) pin[i]=newName;
+  pinnedFor(mgrKind).splice(0, pin.length, ...dedupeCats(pin));
+  if(mgrKind==='nm' && normCat(noteCatFilter)===k) noteCatFilter=newName;
+  if(mgrKind==='pm' && normCat(payCatFilter)===k) payCatFilter=newName;
+  persist(); renderMgr(); renderAll();
 }
-// Επιστρέφει την τελική κατηγορία από το modal
-function readCat(kind){
-  const sel=document.getElementById(kind+'_cat');
-  if(sel.value!=='__new') return sel.value || null;
-  const raw=document.getElementById(kind+'_catnew').value.trim();
-  if(!raw) return kind==='pm' ? 'άλλο' : null;
-  return resolveCat(raw, catsFor(kind));
+function deleteCat(c){
+  const n=catCount(mgrKind,c);
+  const msg = n
+    ? 'Να αφαιρεθεί η «'+c+'» από '+n+' εγγραφές;\n\nΟι εγγραφές ΔΕΝ διαγράφονται — απλώς χάνουν αυτή την κατηγορία.'
+    : 'Διαγραφή της κατηγορίας «'+c+'»;';
+  if(!confirm(msg)) return;
+  const k=normCat(c);
+  itemsFor(mgrKind).forEach(function(x){
+    if(x.cats) x.cats=x.cats.filter(function(y){return normCat(y)!==k;});
+  });
+  const pin=pinnedFor(mgrKind);
+  const pi=pin.findIndex(function(p){return normCat(p)===k;});
+  if(pi>-1) pin.splice(pi,1);
+  if(mgrKind==='nm' && normCat(noteCatFilter)===k) noteCatFilter='all';
+  if(mgrKind==='pm' && normCat(payCatFilter)===k) payCatFilter='all';
+  persist(); renderMgr(); renderAll();
+  toast(n?('Αφαιρέθηκε από '+n+' εγγραφές'):'Διαγράφηκε');
 }
 
 // ══════ ΑΠΟΘΗΚΕΥΣΗ ══════
@@ -530,9 +710,8 @@ function loadLocal(){
   try{
     const raw=localStorage.getItem(LS.data);
     if(raw){
-      const d=JSON.parse(raw);
-      delete d.books;                       // v6: τα βιβλία αφαιρέθηκαν
-      DB=Object.assign({pay:[],notes:[],updatedAt:null},d);
+      const d=JSON.parse(raw); delete d.books;
+      DB=Object.assign({pay:[],notes:[],pinnedCats:[],pinnedPayCats:[],updatedAt:null},d);
     }
     const c=localStorage.getItem(LS.chat);
     if(c) chatHistory=JSON.parse(c);
@@ -548,43 +727,21 @@ function persist(){
   clearTimeout(pushTimer);
   pushTimer=setTimeout(function(){ drivePush(true); },1500);
 }
-// Εφάπαξ ένωση διπλών κατηγοριών (τόνοι/κεφαλαία)
-function migrateCats(){
-  let changed=false;
-  const nc=noteCategories();
-  DB.notes.forEach(function(n){
-    if(!n.category) return;
-    const r=resolveCat(n.category, nc);
-    if(r && r!==n.category){ n.category=r; changed=true; }
-  });
-  const pc=payCategories();
-  DB.pay.forEach(function(o){
-    if(!o.category) return;
-    const r=resolveCat(o.category, pc);
-    if(r && r!==o.category){ o.category=r; changed=true; }
-  });
-  if(changed) saveLocal(false);
-}
 
 // ══════ GOOGLE ══════
 function saveToken(tok,expiresIn){
-  gToken=tok;
-  gTokenExp=Date.now()+((parseInt(expiresIn)||3600)-120)*1000;
+  gToken=tok; gTokenExp=Date.now()+((parseInt(expiresIn)||3600)-120)*1000;
   try{ localStorage.setItem(LS.gtok, JSON.stringify({t:tok,e:gTokenExp})); }catch(e){}
 }
 function loadToken(){
   try{
-    const raw=localStorage.getItem(LS.gtok);
-    if(!raw) return false;
+    const raw=localStorage.getItem(LS.gtok); if(!raw) return false;
     const o=JSON.parse(raw);
     if(!o.t || !o.e || Date.now()>=o.e) return false;
     gToken=o.t; gTokenExp=o.e; return true;
   }catch(e){ return false; }
 }
-function clearToken(){
-  gToken=null; gTokenExp=0;
-  try{ localStorage.removeItem(LS.gtok); }catch(e){}
-}
+function clearToken(){ gToken=null; gTokenExp=0; try{ localStorage.removeItem(LS.gtok); }catch(e){} }
 function hasConsented(){ return localStorage.getItem(LS.gok)==='1'; }
 function refreshTokenSilently(){
   if(!gTokenClient) return Promise.resolve(false);
@@ -614,9 +771,7 @@ function initGoogle(){
         saveToken(resp.access_token, resp.expires_in);
         localStorage.setItem(LS.gok,'1');
         updateDriveUI(); drivePull(true); startAutoSync();
-      } else if(!silentResolve){
-        setSync('err','Σφάλμα'); toast('❌ Αποτυχία σύνδεσης');
-      }
+      } else if(!silentResolve){ setSync('err','Σφάλμα'); toast('❌ Αποτυχία σύνδεσης'); }
       if(silentResolve){ silentResolve(ok); silentPending=null; silentResolve=null; }
     }
   });
@@ -631,8 +786,7 @@ function driveConnect(){
   gTokenClient.requestAccessToken({prompt: hasConsented() ? '' : 'consent'});
 }
 function driveDisconnect(){
-  clearToken(); driveFileId=null;
-  localStorage.removeItem(LS.gok);
+  clearToken(); driveFileId=null; localStorage.removeItem(LS.gok);
   clearInterval(autoTimer); updateDriveUI(); toast('Αποσυνδέθηκες');
 }
 function updateDriveUI(){
@@ -702,12 +856,10 @@ async function drivePull(quiet){
     const lT=DB.updatedAt?new Date(DB.updatedAt).getTime():0;
     if(rT>lT){
       delete remote.books;
-      DB=Object.assign({pay:[],notes:[],updatedAt:null},remote);
+      DB=Object.assign({pay:[],notes:[],pinnedCats:[],pinnedPayCats:[],updatedAt:null},remote);
       saveLocal(false); migrateCats(); renderAll();
       if(!quiet) toast('☁️ Φορτώθηκαν από το Drive');
-    } else if(lT>rT){
-      isSyncing=false; await drivePush(true); return;
-    }
+    } else if(lT>rT){ isSyncing=false; await drivePush(true); return; }
     setSync('on','Drive');
   }catch(e){ setSync('err','Σφάλμα'); if(!quiet) toast('⚠️ '+e.message); }
   isSyncing=false;
@@ -723,7 +875,7 @@ document.addEventListener('visibilitychange',function(){
   if(document.visibilityState==='visible' && hasConsented()){ drivePull(true); checkReminders(); }
 });
 
-// ══════ GOOGLE CALENDAR ══════
+// ══════ CALENDAR ══════
 function toggleCal(){
   calEnabled=!calEnabled;
   localStorage.setItem(LS.cal, calEnabled?'1':'0');
@@ -738,8 +890,7 @@ async function calUpsert(note){
   const body={
     summary:'🔔 '+(note.title||'Υπενθύμιση'),
     description:(note.body||'').slice(0,900)+'\n\n— Προσωπικός Agent',
-    start:{dateTime:start.toISOString()},
-    end:{dateTime:end.toISOString()},
+    start:{dateTime:start.toISOString()}, end:{dateTime:end.toISOString()},
     reminders:{useDefault:false, overrides:[{method:'popup',minutes:0}]}
   };
   try{
@@ -747,7 +898,7 @@ async function calUpsert(note){
       const r=await gFetch('https://www.googleapis.com/calendar/v3/calendars/primary/events/'+encodeURIComponent(note.calId),
         {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
       if(r.ok) return;
-      note.calId=null;   // χάθηκε το event, φτιάχνουμε νέο
+      note.calId=null;
     }
     const r2=await gFetch('https://www.googleapis.com/calendar/v3/calendars/primary/events',
       {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
@@ -786,14 +937,14 @@ function importJson(ev){
     const d=JSON.parse(rd.result);
     if(!d.pay&&!d.notes) throw new Error('Άκυρο αρχείο');
     delete d.books;
-    DB=Object.assign({pay:[],notes:[]},d);
-    persist(); migrateCats(); renderAll(); toast('✅ Φορτώθηκαν');
+    DB=Object.assign({pay:[],notes:[],pinnedCats:[],pinnedPayCats:[]},d);
+    migrateCats(); persist(); renderAll(); toast('✅ Φορτώθηκαν');
   }catch(e){toast('❌ '+e.message);} };
   rd.readAsText(f); ev.target.value='';
 }
 function wipeLocal(){
   if(!confirm('Διαγραφή ΟΛΩΝ των τοπικών δεδομένων;')) return;
-  DB={pay:[],notes:[],updatedAt:null}; chatHistory=[];
+  DB={pay:[],notes:[],pinnedCats:[],pinnedPayCats:[],updatedAt:null}; chatHistory=[];
   localStorage.removeItem(LS.data); localStorage.removeItem(LS.chat);
   document.getElementById('chatArea').innerHTML=''; renderAll(); toast('Διαγράφηκαν');
 }
@@ -823,20 +974,14 @@ function beep(){
     setTimeout(function(){ try{ctx.close();}catch(e){} },900);
   }catch(e){}
 }
-// Το Android ΑΠΑΓΟΡΕΥΕΙ το new Notification() — απαιτεί service worker.
 function fireNotification(title, body, tag){
   const opts={ body:body, icon:'icon-192.png', badge:'icon-192.png', tag:tag,
     renotify:true, requireInteraction:true, vibrate:[300,120,300,120,300] };
   if('Notification' in window && Notification.permission==='granted'){
     if(navigator.serviceWorker && navigator.serviceWorker.ready){
-      navigator.serviceWorker.ready.then(function(reg){
-        reg.showNotification('🔔 '+title, opts);
-      }).catch(function(){
-        try{ new Notification('🔔 '+title, opts); }catch(e){}
-      });
-    } else {
-      try{ new Notification('🔔 '+title, opts); }catch(e){}
-    }
+      navigator.serviceWorker.ready.then(function(reg){ reg.showNotification('🔔 '+title, opts); })
+        .catch(function(){ try{ new Notification('🔔 '+title, opts); }catch(e){} });
+    } else { try{ new Notification('🔔 '+title, opts); }catch(e){} }
   }
   if(navigator.vibrate) try{ navigator.vibrate([300,120,300]); }catch(e){}
   beep();
@@ -862,7 +1007,6 @@ function checkReminders(){
   if(changed){ persist(); renderNotes(); }
 }
 
-// ══════ TABS ══════
 function switchTab(name){
   const tabs=document.querySelectorAll('.tab');
   for(let i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
@@ -873,8 +1017,26 @@ function switchTab(name){
   if(name==='stats') renderStats();
 }
 
+// ── κοινή μπάρα φίλτρων: σταθερά + καρφιτσωμένα + «όλες» ──
+function buildFilterBar(kind, fixed, current, onPick, onMore){
+  const pin=pinnedFor(kind);
+  let html=fixed.map(function(f){
+    return '<div class="filt '+(current===f.v?'active':'')+'" onclick="'+onPick+'(\''+jq(f.v)+'\')">'+f.t+'</div>';
+  }).join('');
+  pin.forEach(function(c){
+    html+='<div class="filt '+(normCat(current)===normCat(c)?'active':'')+
+      '" onclick="'+onPick+'(\''+jq(c)+'\')">'+esc(c)+' <span class="brk-sub">'+catCount(kind,c)+'</span></div>';
+  });
+  const total=catsFor(kind).length;
+  const isOther = current!=='all' && !fixed.some(function(f){return f.v===current;}) &&
+                  !pin.some(function(p){return normCat(p)===normCat(current);});
+  html+='<div class="filt more '+(isOther?'active':'')+'" onclick="'+onMore+'()">'+
+        (isOther?esc(current):'🏷️ Όλες')+' ▾ <span class="brk-sub">'+total+'</span></div>';
+  return html;
+}
+
 // ══════ ΠΛΗΡΩΜΕΣ ══════
-let payFilter='all', expandedPay=null, paySortAsc=true, flashId=null;
+let payFilter='all', payCatFilter='all', expandedPay=null, paySortAsc=true;
 function payStatus(o){
   if(o.paid) return 'paid';
   const d=daysUntil(o.dueDate);
@@ -885,11 +1047,34 @@ function togglePaySort(){
   document.getElementById('paySortBtn').textContent = paySortAsc ? '↑ Πρόσφατα' : '↓ Μελλοντικά';
   renderPay();
 }
+function setPayFilt(v){
+  if(['all','overdue','soon','paid'].indexOf(v)>-1){ payFilter=v; payCatFilter='all'; }
+  else { payCatFilter=v; payFilter='all'; }
+  expandedPay=null; renderPay();
+}
+function openPayCats(){
+  document.getElementById('filtList').innerHTML = filtListHtml('pm','setPayFilt');
+  document.querySelector('#filtModal .btn-sec').setAttribute('onclick',"closeModal('filtModal');openCatMgr('pm')");
+  document.getElementById('filtModal').classList.add('open');
+}
+function filtListHtml(kind, fn){
+  const cats=catsFor(kind);
+  let html='<div class="pick" onclick="closeModal(\'filtModal\');'+fn+'(\'all\')"><div class="pick-name">Όλες</div></div>';
+  return html + (cats.length ? cats.map(function(c){
+    return '<div class="pick" onclick="closeModal(\'filtModal\');'+fn+'(\''+jq(c)+'\')">'+
+      '<div class="pick-name">'+esc(c)+'</div><span class="pick-cnt">'+catCount(kind,c)+'</span></div>';
+  }).join('') : '<div class="hint" style="padding:10px 2px;">Καμία κατηγορία ακόμα.</div>');
+}
 function renderPay(){
+  document.getElementById('payFilters').innerHTML=buildFilterBar('pm',
+    [{v:'all',t:'Όλα'},{v:'overdue',t:'⚠️ Ληγμένα'},{v:'soon',t:'🔔 Σύντομα'},{v:'paid',t:'✅ Πληρωμένα'}],
+    payCatFilter!=='all'?payCatFilter:payFilter, 'setPayFilt','openPayCats');
+
   let items=DB.pay.slice().sort(function(a,b){
     return paySortAsc ? new Date(a.dueDate)-new Date(b.dueDate) : new Date(b.dueDate)-new Date(a.dueDate);
   });
-  if(payFilter==='overdue') items=items.filter(function(o){return payStatus(o)==='overdue';});
+  if(payCatFilter!=='all') items=items.filter(function(o){return hasCat(o,payCatFilter);});
+  else if(payFilter==='overdue') items=items.filter(function(o){return payStatus(o)==='overdue';});
   else if(payFilter==='soon') items=items.filter(function(o){return payStatus(o)==='soon';});
   else if(payFilter==='paid') items=items.filter(function(o){return o.paid;});
   else items=items.filter(function(o){return !o.paid;}).concat(items.filter(function(o){return o.paid;}));
@@ -911,13 +1096,14 @@ function renderPay(){
     const dCls=ob.paid?'':(d<0?'red':(d<=7?'yellow':'green'));
     const exp=expandedPay===ob.id;
     let repTxt='';
-    if(ob.repeat&&ob.repeat!=='none'){
-      repTxt=ob.repeat==='monthly'?'Μηνιαία':(ob.repeat==='quarterly'?'Τριμηνιαία':'Ετήσια');
-    }
+    if(ob.repeat&&ob.repeat!=='none') repTxt=ob.repeat==='monthly'?'Μηνιαία':(ob.repeat==='quarterly'?'Τριμηνιαία':'Ετήσια');
     return '<div class="ob-card '+st+(flashId===ob.id?' flash':'')+'" id="card-'+ob.id+'" onclick="togglePayExpand(\''+ob.id+'\')">'+
       '<div class="ob-top"><div class="ob-title">'+esc(ob.title)+'</div><div class="ob-amt">'+fmtAmt(ob.amount)+'</div></div>'+
       '<div class="ob-meta"><span class="ob-date">📅 '+fmtDate(ob.dueDate)+'</span>'+
-        '<span class="ob-cat">'+esc(ob.category||'—')+'</span><span class="ob-days '+dCls+'">'+dTxt+'</span></div>'+
+        '<span class="ob-days '+dCls+'">'+dTxt+'</span></div>'+
+      '<div class="tagrow">'+((ob.cats||[]).map(function(c,i){
+        return '<span class="cat-tag'+(i===0?' first':'')+'">'+(i===0?'★ ':'')+esc(c)+'</span>';
+      }).join('')||'<span class="cat-tag">—</span>')+'</div>'+
       (ob.notes?'<div style="font-size:11px;color:var(--txt3);margin-top:4px;">📝 '+esc(ob.notes)+'</div>':'')+
       (repTxt?'<div style="font-size:10px;color:var(--acc);margin-top:3px;">🔁 '+repTxt+'</div>':'')+
       (exp?'<div class="ob-actions">'+
@@ -928,20 +1114,16 @@ function renderPay(){
         '<button class="act-btn" onclick="event.stopPropagation();deletePay(\''+ob.id+'\')">🗑️</button></div>':'')+
     '</div>';
   }).join('');
-  if(flashId){
-    const el=document.getElementById('card-'+flashId);
-    if(el) el.scrollIntoView({block:'center'});
-    const f=flashId; flashId=null;
-    setTimeout(function(){ const e2=document.getElementById('card-'+f); if(e2) e2.classList.remove('flash'); },1600);
-  }
+  doFlash();
+}
+function doFlash(){
+  if(!flashId) return;
+  const el=document.getElementById('card-'+flashId);
+  if(el) el.scrollIntoView({block:'center'});
+  const f=flashId; flashId=null;
+  setTimeout(function(){ const e2=document.getElementById('card-'+f); if(e2) e2.classList.remove('flash'); },2000);
 }
 function togglePayExpand(id){expandedPay=(expandedPay===id?null:id);renderPay();}
-function setPayFilter(f,el){
-  payFilter=f;
-  const fs=document.querySelectorAll('#panel-payments .filt');
-  for(let i=0;i<fs.length;i++) fs[i].classList.remove('active');
-  el.classList.add('active'); expandedPay=null; renderPay();
-}
 function openPayModal(id,pre){
   const ob=id?DB.pay.filter(function(o){return o.id===id;})[0]:null;
   pre=pre||{};
@@ -949,10 +1131,11 @@ function openPayModal(id,pre){
   document.getElementById('pm_id').value=ob?ob.id:'';
   document.getElementById('pm_title').value=ob?ob.title:(pre.title||'');
   document.getElementById('pm_amt').value=ob?ob.amount:(pre.amount||'');
-  fillCatSelect('pm', ob?ob.category:'άλλο');
   document.getElementById('pm_date').value=ob?ob.dueDate:(pre.dueDate||todayStr());
   document.getElementById('pm_rep').value=ob?ob.repeat:'none';
   document.getElementById('pm_notes').value=ob?ob.notes:(pre.notes||'');
+  pickSel = ob ? (ob.cats||[]).slice() : (pre.cats||[]);
+  refreshCatbox('pm');
   document.getElementById('payModal').classList.add('open');
 }
 function savePay(){
@@ -960,29 +1143,29 @@ function savePay(){
   const title=document.getElementById('pm_title').value.trim();
   const dueDate=document.getElementById('pm_date').value;
   if(!title||!dueDate){toast('⚠️ Χρειάζεται τίτλος και ημερομηνία');return;}
-  const before=payCategories().length;
-  const cat=readCat('pm');
   const prev=id?DB.pay.filter(function(o){return o.id===id;})[0]:null;
+  const cats=dedupeCats(pickSel.slice());
   const ob={id:id||genId(),title:title,
     amount:parseFloat(document.getElementById('pm_amt').value)||0,
-    category:cat||'άλλο', dueDate:dueDate,
+    cats:cats.length?cats:['άλλο'], dueDate:dueDate,
     repeat:document.getElementById('pm_rep').value,
     notes:document.getElementById('pm_notes').value.trim(),
     paid:prev?prev.paid:false, paidAt:prev?prev.paidAt:null,
     createdAt:prev?prev.createdAt:new Date().toISOString()};
   if(id) DB.pay=DB.pay.map(function(o){return o.id===id?ob:o;}); else DB.pay.push(ob);
-  persist(); renderPay(); closeModal('payModal');
-  const isNew = payCategories().length>before;
-  toast((id?'✅ Ενημερώθηκε':'✅ Αποθηκεύτηκε')+(isNew?' · νέα κατηγορία "'+cat+'"':''));
+  persist();
+  payFilter='all'; payCatFilter='all';     // αλλιώς μπορεί να μη φαίνεται
+  flashId=ob.id; renderPay(); closeModal('payModal');
+  toast(id?'✅ Ενημερώθηκε':'✅ Αποθηκεύτηκε');
 }
 function markPayPaid(id){
   const ob=DB.pay.filter(function(o){return o.id===id;})[0]; if(!ob)return;
   ob.paid=true; ob.paidAt=new Date().toISOString();
   if(ob.repeat&&ob.repeat!=='none'){
     const step = ob.repeat==='monthly'?1:(ob.repeat==='quarterly'?3:12);
-    const next=Object.assign({},ob,{id:genId(),paid:false,paidAt:null,
-      dueDate:addMonths(ob.dueDate, step), createdAt:new Date().toISOString()});
-    DB.pay.push(next);
+    DB.pay.push(Object.assign({},ob,{id:genId(),paid:false,paidAt:null,
+      cats:(ob.cats||[]).slice(), dueDate:addMonths(ob.dueDate, step),
+      createdAt:new Date().toISOString()}));
   }
   persist(); expandedPay=null; renderPay(); toast('✅ Πληρώθηκε');
 }
@@ -998,34 +1181,41 @@ function deletePay(id){
 
 // ══════ ΣΗΜΕΙΩΣΕΙΣ ══════
 let noteSortAsc=true, noteCatFilter='all';
-const noteKey = n => new Date(n.remindAt || n.updatedAt || n.createdAt).getTime();
-
-function refreshCatUI(){
-  const cats=noteCategories();
-  const row=document.getElementById('noteCatFilters');
-  let html='<div class="filt '+(noteCatFilter==='all'?'active':'')+'" onclick="setNoteCat(\'all\')">Όλες</div>';
-  html+='<div class="filt '+(noteCatFilter==='__remind'?'active':'')+'" onclick="setNoteCat(\'__remind\')">🔔 Με υπενθύμιση</div>';
-  cats.forEach(function(c){
-    const safe=String(c).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    html+='<div class="filt '+(normCat(noteCatFilter)===normCat(c)?'active':'')+'" onclick="setNoteCat(\''+safe+'\')">'+esc(c)+'</div>';
+// Δύο ομάδες: μελλοντικές υπενθυμίσεις πρώτα, μετά ό,τι γράφτηκε τελευταίο
+function sortNotes(list, asc){
+  const now=Date.now();
+  const A=[], B=[];
+  list.forEach(function(n){
+    if(n.remindAt && new Date(n.remindAt).getTime()>now) A.push(n); else B.push(n);
   });
-  html+='<div class="filt '+(noteCatFilter==='__none'?'active':'')+'" onclick="setNoteCat(\'__none\')">Χωρίς κατηγορία</div>';
-  row.innerHTML=html;
+  A.sort(function(a,b){
+    return asc ? new Date(a.remindAt)-new Date(b.remindAt) : new Date(b.remindAt)-new Date(a.remindAt);
+  });
+  B.sort(function(a,b){
+    return new Date(b.updatedAt||b.createdAt)-new Date(a.updatedAt||a.createdAt);
+  });
+  return A.concat(B);
 }
 function setNoteCat(c){ noteCatFilter=c; renderNotes(); }
+function openNoteCats(){
+  document.getElementById('filtList').innerHTML = filtListHtml('nm','setNoteCat');
+  document.querySelector('#filtModal .btn-sec').setAttribute('onclick',"closeModal('filtModal');openCatMgr('nm')");
+  document.getElementById('filtModal').classList.add('open');
+}
 function toggleNoteSort(){
   noteSortAsc=!noteSortAsc;
   document.getElementById('noteSortBtn').textContent=noteSortAsc?'↑ Πρόσφατα':'↓ Μελλοντικά';
   renderNotes();
 }
 function renderNotes(){
-  refreshCatUI();
-  let items=DB.notes.slice().sort(function(a,b){
-    return noteSortAsc ? noteKey(a)-noteKey(b) : noteKey(b)-noteKey(a);
-  });
+  document.getElementById('noteCatFilters').innerHTML=buildFilterBar('nm',
+    [{v:'all',t:'Όλες'},{v:'__remind',t:'🔔 Με υπενθύμιση'},{v:'__none',t:'Χωρίς κατηγορία'}],
+    noteCatFilter, 'setNoteCat','openNoteCats');
+
+  let items=sortNotes(DB.notes.slice(), noteSortAsc);
   if(noteCatFilter==='__remind') items=items.filter(function(n){return !!n.remindAt;});
-  else if(noteCatFilter==='__none') items=items.filter(function(n){return !n.category;});
-  else if(noteCatFilter!=='all') items=items.filter(function(n){return normCat(n.category)===normCat(noteCatFilter);});
+  else if(noteCatFilter==='__none') items=items.filter(function(n){return !(n.cats||[]).length;});
+  else if(noteCatFilter!=='all') items=items.filter(function(n){return hasCat(n,noteCatFilter);});
 
   document.getElementById('noteCount').textContent=items.length+' σημειώσεις';
   if(!items.length){document.getElementById('noteList').innerHTML='<div class="empty"><div class="ei">📝</div>Καμία σημείωση.</div>';return;}
@@ -1038,10 +1228,10 @@ function renderNotes(){
       '<div class="note-header"><div class="note-title">'+esc(n.title||'Χωρίς τίτλο')+'</div>'+
         '<div class="note-date">'+fmtDate((n.updatedAt||n.createdAt).split('T')[0])+'</div></div>'+
       '<div class="note-body">'+esc(n.body)+'</div>'+
-      '<div class="note-tagrow">'+
-        (n.category?'<span class="cat-tag">🏷️ '+esc(n.category)+'</span>':'')+
+      '<div class="tagrow">'+
+        (n.cats||[]).map(function(c){return '<span class="cat-tag">🏷️ '+esc(c)+'</span>';}).join('')+
         (n.remindAt?'<span class="remind-tag">🔔 '+fmtDT(n.remindAt)+'</span>':'')+
-        (n.calId?'<span class="cal-tag">📅 Ημερολόγιο</span>':'')+
+        (n.calId?'<span class="cal-tag">📅</span>':'')+
       '</div>'+
       '<div class="note-actions">'+
         '<button class="act-btn" onclick="openNoteModal(\''+n.id+'\')">✏️ Αλλαγή</button>'+
@@ -1049,12 +1239,7 @@ function renderNotes(){
         '<button class="act-btn" onclick="deleteNote(\''+n.id+'\')">🗑️</button>'+
       '</div></div>';
   }).join('');
-  if(flashId){
-    const el=document.getElementById('card-'+flashId);
-    if(el) el.scrollIntoView({block:'center'});
-    const f=flashId; flashId=null;
-    setTimeout(function(){ const e2=document.getElementById('card-'+f); if(e2) e2.classList.remove('flash'); },1600);
-  }
+  doFlash();
 }
 function openNoteModal(id){
   const n=id?DB.notes.filter(function(o){return o.id===id;})[0]:null;
@@ -1062,40 +1247,40 @@ function openNoteModal(id){
   document.getElementById('nm_id').value=n?n.id:'';
   document.getElementById('nm_title').value=n?n.title:'';
   document.getElementById('nm_body').value=n?n.body:'';
-  fillCatSelect('nm', n?n.category:'');
+  pickSel = n ? (n.cats||[]).slice() : [];
+  refreshCatbox('nm');
   let rv='';
   if(n&&n.remindAt){
     const d=new Date(n.remindAt);
     rv=d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'T'+pad2(d.getHours())+':'+pad2(d.getMinutes());
   }
   document.getElementById('nm_remind').value=rv;
-  document.getElementById('nm_calhint').textContent =
-    calEnabled ? '📅 Μπαίνει και στο Google Calendar — χτυπάει το κινητό ακόμα κι αν η εφαρμογή είναι κλειστή.'
-               : '⚠️ Το Ημερολόγιο είναι κλειστό. Η ειδοποίηση θα έρθει μόνο όσο η εφαρμογή είναι ανοιχτή.';
+  document.getElementById('nm_calhint').textContent = calEnabled
+    ? '📅 Μπαίνει και στο Google Calendar — χτυπάει το κινητό ακόμα κι αν η εφαρμογή είναι κλειστή.'
+    : '⚠️ Το Ημερολόγιο είναι κλειστό. Η ειδοποίηση θα έρθει μόνο όσο η εφαρμογή είναι ανοιχτή.';
   document.getElementById('noteModal').classList.add('open');
 }
 function saveNote(){
   const id=document.getElementById('nm_id').value;
   const body=document.getElementById('nm_body').value.trim();
   if(!body){toast('⚠️ Γράψε κάτι');return;}
-  const before=noteCategories().length;
-  const cat=readCat('nm');
   const prev=id?DB.notes.filter(function(o){return o.id===id;})[0]:null;
   const rv=document.getElementById('nm_remind').value;
   const remindAt=rv?new Date(rv).toISOString():null;
   const sameRemind = prev && prev.remindAt===remindAt;
   const n={id:id||genId(),
     title:document.getElementById('nm_title').value.trim(),
-    body:body, category:cat,
+    body:body, cats:dedupeCats(pickSel.slice()),
     remindAt:remindAt,
     remindFired: (remindAt && sameRemind) ? prev.remindFired : false,
     calId: prev?prev.calId:null,
     createdAt:prev?prev.createdAt:new Date().toISOString(),
     updatedAt:new Date().toISOString()};
   if(id) DB.notes=DB.notes.map(function(o){return o.id===id?n:o;}); else DB.notes.push(n);
-  persist(); renderNotes(); closeModal('noteModal');
-  const isNew = cat && noteCategories().length>before;
-  toast((id?'✅ Ενημερώθηκε':'✅ Αποθηκεύτηκε')+(isNew?' · νέα κατηγορία "'+cat+'"':''));
+  persist();
+  noteCatFilter='all';
+  flashId=n.id; renderNotes(); closeModal('noteModal');
+  toast(id?'✅ Ενημερώθηκε':'✅ Αποθηκεύτηκε');
   if(remindAt) calUpsert(n);
   else if(n.calId) calDelete(n).then(function(){ saveLocal(false); renderNotes(); });
 }
@@ -1113,7 +1298,7 @@ function noteToPay(id){
   openPayModal(null,{title:n.title||(n.body||'').slice(0,40),
     amount:m?m[1].replace(',','.'):'',
     dueDate:n.remindAt?n.remindAt.split('T')[0]:todayStr(),
-    notes:'Από σημείωση'});
+    notes:'Από σημείωση', cats:(n.cats||[]).slice()});
 }
 function renderAll(){ renderPay(); renderNotes(); }
 
@@ -1136,15 +1321,11 @@ function runSearch(){
   const box=document.getElementById('searchResults');
   if(q.length<2){ box.innerHTML='<div class="empty"><div class="ei">🔍</div>Γράψε τουλάχιστον 2 χαρακτήρες.</div>'; return; }
   const qn=normCat(q);
-  const hit=function(){
-    for(let i=0;i<arguments.length;i++){
-      if(normCat(arguments[i]).indexOf(qn)!==-1) return true;
-    }
-    return false;
+  const hit=function(x){
+    const fields=[x.title,x.body,x.notes].concat(x.cats||[]);
+    return fields.some(function(f){ return normCat(f).indexOf(qn)!==-1; });
   };
-  const pays=DB.pay.filter(function(o){return hit(o.title,o.notes,o.category);});
-  const notes=DB.notes.filter(function(n){return hit(n.title,n.body,n.category);});
-
+  const pays=DB.pay.filter(hit), notes=DB.notes.filter(hit);
   if(!pays.length&&!notes.length){
     box.innerHTML='<div class="empty"><div class="ei">🤷</div>Δεν βρέθηκε τίποτα για «'+esc(q)+'».</div>'; return;
   }
@@ -1153,42 +1334,34 @@ function runSearch(){
     html+='<div class="res-group"><h4>💳 Πληρωμές ('+pays.length+')</h4>'+pays.map(function(o){
       return '<div class="res-item" onclick="jumpTo(\'payments\',\''+o.id+'\')">'+
         '<div class="res-title">'+hl(o.title,q)+' · '+fmtAmt(o.amount)+'</div>'+
-        '<div class="res-sub">'+fmtDate(o.dueDate)+' · '+hl(o.category||'',q)+(o.notes?' · '+hl(o.notes,q):'')+'</div></div>';
+        '<div class="res-sub">'+fmtDate(o.dueDate)+' · '+hl((o.cats||[]).join(', '),q)+
+        (o.notes?' · '+hl(o.notes,q):'')+'</div></div>';
     }).join('')+'</div>';
   }
   if(notes.length){
     html+='<div class="res-group"><h4>📝 Σημειώσεις ('+notes.length+')</h4>'+notes.map(function(n){
       return '<div class="res-item" onclick="jumpTo(\'notes\',\''+n.id+'\')">'+
         '<div class="res-title">'+hl(n.title||'Χωρίς τίτλο',q)+'</div>'+
-        '<div class="res-sub">'+hl((n.body||'').slice(0,140),q)+(n.category?' · 🏷️ '+hl(n.category,q):'')+'</div></div>';
+        '<div class="res-sub">'+hl((n.body||'').slice(0,140),q)+
+        ((n.cats||[]).length?' · 🏷️ '+hl(n.cats.join(', '),q):'')+'</div></div>';
     }).join('')+'</div>';
   }
   box.innerHTML=html;
 }
-// Ανοίγει το ΣΥΓΚΕΚΡΙΜΕΝΟ στοιχείο, όχι απλώς την καρτέλα
 function jumpTo(tab, id){
-  closeSearch();
-  switchTab(tab);
+  closeSearch(); switchTab(tab);
   if(!id) return;
   if(tab==='notes'){
-    noteCatFilter='all';           // αλλιώς μπορεί να το κρύβει το φίλτρο
-    flashId=id; renderNotes();
+    noteCatFilter='all'; flashId=id; renderNotes();
     setTimeout(function(){ openNoteModal(id); },260);
   } else {
-    payFilter='all';
-    const fs=document.querySelectorAll('#panel-payments .filt');
-    for(let i=0;i<fs.length;i++) fs[i].classList.remove('active');
-    if(fs[0]) fs[0].classList.add('active');
-    expandedPay=id; flashId=id; renderPay();
+    payFilter='all'; payCatFilter='all'; expandedPay=id; flashId=id; renderPay();
   }
 }
 
-// ══════ ΣΥΝΟΨΗ — ΜΕΛΛΟΝΤΙΚΕΣ ΥΠΟΧΡΕΩΣΕΙΣ ══════
+// ══════ ΣΥΝΟΨΗ ══════
 let statMonths=1;
 const STEP={monthly:1, quarterly:3, yearly:12};
-
-// Υπολογίζει τις δόσεις μέσα στο παράθυρο. Οι επαναλαμβανόμενες
-// ΠΡΟΒΑΛΛΟΝΤΑΙ — δεν υπάρχουν ακόμα σαν εγγραφές στη βάση.
 function project(pay, months){
   const today=todayStr();
   const end=addMonths(today, months);
@@ -1211,12 +1384,10 @@ function upcoming(months){
   const all=[];
   DB.pay.forEach(function(o){
     project(o, months).forEach(function(inst){
-      all.push({date:inst.date, amt:inst.amt, proj:inst.proj,
-                title:o.title, category:o.category||'άλλο', repeat:o.repeat});
+      all.push({date:inst.date, amt:inst.amt, proj:inst.proj, title:o.title,
+                cat:(o.cats&&o.cats[0])||'άλλο'});   // ΜΟΝΟ η πρώτη στα οικονομικά
     });
   });
-  // Οι επαναλαμβανόμενες που έχουν ήδη δημιουργήσει την επόμενη εγγραφή
-  // δεν πρέπει να μετρηθούν δύο φορές
   const seen={}, out=[];
   all.forEach(function(x){
     const k=x.title+'|'+x.date+'|'+x.amt;
@@ -1228,14 +1399,12 @@ function setStatRange(m,el){
   statMonths=m;
   const fs=document.querySelectorAll('#statRange .filt');
   for(let i=0;i<fs.length;i++) fs[i].classList.remove('active');
-  el.classList.add('active');
-  renderStats();
+  el.classList.add('active'); renderStats();
 }
 function renderStats(){
   const list=upcoming(statMonths);
   const total=list.reduce(function(s,x){return s+x.amt;},0);
   const projCount=list.filter(function(x){return x.proj;}).length;
-
   const overdue=DB.pay.filter(function(o){return !o.paid && daysUntil(o.dueDate)<0;});
   const ovSum=overdue.reduce(function(s,o){return s+parseFloat(o.amount||0);},0);
   const next=list[0];
@@ -1251,12 +1420,8 @@ function renderStats(){
       (next?esc(next.title):'—')+'</div><div class="stat-lbl">'+
       (next?'Επόμενη · '+fmtDate(next.date)+' · '+fmtAmt(next.amt):'Καμία μπροστά')+'</div></div>';
 
-  // Ανά μήνα
   const byM={};
-  list.forEach(function(x){
-    const k=x.date.slice(0,7);
-    byM[k]=(byM[k]||0)+x.amt;
-  });
+  list.forEach(function(x){ const k=x.date.slice(0,7); byM[k]=(byM[k]||0)+x.amt; });
   const mKeys=Object.keys(byM).sort();
   document.getElementById('monthBreak').innerHTML= mKeys.length
     ? '<div class="blk-head">Ανά μήνα</div>'+mKeys.map(function(k){
@@ -1267,10 +1432,9 @@ function renderStats(){
       }).join('')
     : '<div class="blk-head">Ανά μήνα</div><div class="hint">Καμία υποχρέωση στο διάστημα.</div>';
 
-  // Ανά κατηγορία
   const byC={};
   list.forEach(function(x){
-    const k=resolveCat(x.category, payCategories())||'άλλο';
+    const k=resolveCat(x.cat, payCategories())||'άλλο';
     byC[k]=(byC[k]||0)+x.amt;
   });
   const cKeys=Object.keys(byC).sort(function(a,b){return byC[b]-byC[a];});
@@ -1280,7 +1444,7 @@ function renderStats(){
         return '<div class="brk"><span class="brk-l">'+esc(k)+
           ' <span class="brk-sub">'+pct+'%</span></span>'+
           '<span class="brk-r">'+fmtAmt(byC[k])+'</span></div>';
-      }).join('')
+      }).join('')+'<div class="hint">Μετράει η ★ πρώτη κατηγορία κάθε πληρωμής, ώστε το άθροισμα να ισούται με το σύνολο.</div>'
     : '<div class="blk-head">Ανά κατηγορία</div><div class="hint">—</div>';
 }
 
@@ -1301,7 +1465,6 @@ async function aiReview(){
     'ΛΗΓΜΕΝΕΣ ('+overdue.length+'): '+(overdue.map(function(o){return o.title+' '+fmtAmt(o.amount);}).join(', ')||'καμία')+'\n'+
     'ΥΠΕΝΘΥΜΙΣΕΙΣ: '+(rem.map(function(n){return (n.title||n.body.slice(0,30))+' '+fmtDT(n.remindAt);}).join(' | ')||'καμία')+'\n'+
     'Ξεκίνα με τις ληγμένες αν υπάρχουν, μετά το ταμειακό βάρος ανά μήνα, και κλείσε με μία πρακτική πρόταση.';
-
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
@@ -1324,7 +1487,7 @@ function buildCtx(){
   const L=function(list){return list.map(function(o){
     const d=daysUntil(o.dueDate);
     return '  • '+o.title+': '+fmtAmt(o.amount)+', λήγει '+fmtDate(o.dueDate)+
-      ' ('+(d<0?Math.abs(d)+' ημ. πίσω':'σε '+d+' ημ.')+'), κατ: '+o.category+
+      ' ('+(d<0?Math.abs(d)+' ημ. πίσω':'σε '+d+' ημ.')+'), κατ: '+(o.cats||[]).join(', ')+
       (o.repeat&&o.repeat!=='none'?', επανάληψη: '+o.repeat:'');
   }).join('\n');};
   const q=upcoming(3).reduce(function(s,x){return s+x.amt;},0);
@@ -1339,27 +1502,24 @@ function buildCtx(){
 'Τώρα: '+new Date().toLocaleString('el-GR')+' (σήμερα '+todayStr()+')\n\n'+
 'ΠΛΗΡΩΜΕΣ — εκκρεμείς '+pend.length+', σύνολο €'+pend.reduce(function(s,o){return s+parseFloat(o.amount||0);},0).toFixed(2)+'\n'+
 (pend.length?L(pend):'  (καμία)')+'\n\n'+
-'ΜΕΛΛΟΝΤΙΚΕΣ ΥΠΟΧΡΕΩΣΕΙΣ (με προβολή επαναλαμβανόμενων):\n'+
-'  Επόμενο τρίμηνο: €'+q.toFixed(2)+' | Επόμενο έτος: €'+y.toFixed(2)+'\n\n'+
+'ΜΕΛΛΟΝΤΙΚΕΣ (με προβολή επαναλαμβανόμενων): τρίμηνο €'+q.toFixed(2)+' | έτος €'+y.toFixed(2)+'\n\n'+
 'ΚΑΤΗΓΟΡΙΕΣ ΠΛΗΡΩΜΩΝ: '+payCategories().join(', ')+'\n'+
 'ΚΑΤΗΓΟΡΙΕΣ ΣΗΜΕΙΩΣΕΩΝ: '+(noteCategories().join(', ')||'(καμία ακόμα)')+'\n\n'+
 'ΣΗΜΕΙΩΣΕΙΣ ('+DB.notes.length+' σύνολο), τελευταίες:\n'+
-(recent.map(function(n){return '  • ['+(n.category||'—')+'] '+(n.title||'(χωρίς τίτλο)')+': '+n.body.slice(0,80);}).join('\n')||'  (καμία)')+'\n\n'+
+(recent.map(function(n){return '  • ['+((n.cats||[]).join(', ')||'—')+'] '+(n.title||'(χωρίς τίτλο)')+': '+n.body.slice(0,80);}).join('\n')||'  (καμία)')+'\n\n'+
 'ΕΠΕΡΧΟΜΕΝΕΣ ΥΠΕΝΘΥΜΙΣΕΙΣ:\n'+
 (reminders.map(function(n){return '  • '+fmtDT(n.remindAt)+' — '+(n.title||n.body.slice(0,50));}).join('\n')||'  (καμία)')+'\n\n'+
 'ΤΙ ΚΑΝΕΙΣ:\n'+
-'Καταλαβαίνεις μόνος σου πού ανήκει ό,τι σου λέει και το καταχωρείς χωρίς να ρωτάς.\n'+
-'• Πληρωμή/υποχρέωση → ADD_PAY:{"title":"…","amount":0,"dueDate":"YYYY-MM-DD","category":"…","repeat":"none","notes":"…"}\n'+
-'• Οτιδήποτε άλλο → ADD_NOTE:{"title":"…","body":"…","category":"…","remindAt":"YYYY-MM-DDTHH:MM"}\n'+
+'• Πληρωμή → ADD_PAY:{"title":"…","amount":0,"dueDate":"YYYY-MM-DD","cats":["…"],"repeat":"none","notes":"…"}\n'+
+'• Οτιδήποτε άλλο → ADD_NOTE:{"title":"…","body":"…","cats":["…"],"remindAt":"YYYY-MM-DDTHH:MM"}\n'+
 '• Απλή ερώτηση → απάντησε από τα δεδομένα, χωρίς JSON.\n\n'+
 'ΚΑΝΟΝΕΣ ΚΑΤΗΓΟΡΙΩΝ:\n'+
-'- Χρησιμοποίησε ΑΚΡΙΒΩΣ μία από τις υπάρχουσες κατηγορίες παραπάνω αν ταιριάζει.\n'+
+'- Το "cats" είναι ΠΙΝΑΚΑΣ. Μπορείς να βάλεις πολλές, π.χ. ["Αγορές","Super market"].\n'+
+'- Στις πληρωμές, η ΠΡΩΤΗ κατηγορία μετράει στα οικονομικά — βάλε πρώτη την πιο ουσιαστική.\n'+
+'- Χρησιμοποίησε ΑΚΡΙΒΩΣ τις υπάρχουσες κατηγορίες αν ταιριάζουν.\n'+
 '- Μη φτιάχνεις παραλλαγή με άλλα κεφαλαία ή τόνους — μετράει ως ίδια.\n'+
-'- Για πληρωμή, αν δεν ταιριάζει καμία, βάλε "άλλο".\n'+
-'- Για σημείωση, δίνε πάντα κατηγορία μία-δύο λέξεων στα Ελληνικά.\n\n'+
-'ΚΑΝΟΝΕΣ ΥΠΕΝΘΥΜΙΣΗΣ:\n'+
-'- Αν αναφέρει χρόνο ("αύριο στις 3", "τη Δευτέρα"), υπολόγισε πραγματική ημερομηνία και ώρα.\n'+
-'- Αν δεν υπάρχει χρόνος, βάλε remindAt: null. Αν λέει μέρα χωρίς ώρα, βάλε 09:00.\n\n'+
+'- Πληρωμή χωρίς ταίριασμα → ["άλλο"].\n\n'+
+'ΥΠΕΝΘΥΜΙΣΗ: αν αναφέρει χρόνο, υπολόγισε πραγματική ημερομηνία/ώρα. Αλλιώς null. Μέρα χωρίς ώρα → 09:00.\n\n'+
 'Μία γραμμή JSON το πολύ ανά απάντηση, πάντα στο τέλος.';
 }
 
@@ -1368,8 +1528,7 @@ function addBubble(role,text,scroll){
   const div=document.createElement('div');
   div.className='msg '+role;
   const html=esc(text).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-                      .replace(/_(.*?)_/g,'<em>$1</em>')
-                      .replace(/\n/g,'<br>');
+                      .replace(/_(.*?)_/g,'<em>$1</em>').replace(/\n/g,'<br>');
   div.innerHTML='<div class="msg-av">'+(role==='assistant'?'✦':'👤')+'</div><div class="bubble">'+html+'</div>';
   area.appendChild(div);
   if(scroll!==false) area.scrollTop=area.scrollHeight;
@@ -1394,14 +1553,12 @@ async function sendMsg(){
   document.getElementById('sendBtn').disabled=true;
   addBubble('user',text); chatHistory.push({role:'user',content:text});
   showTyping();
-
   try{
     const messages=[{role:'user',content:buildCtx()},
                     {role:'assistant',content:'Εντάξει, έχω τα δεδομένα σου.'}];
     const hist=chatHistory.slice(-9,-1);
     for(let i=0;i<hist.length;i++) messages.push({role:hist[i].role,content:hist[i].content});
     messages.push({role:'user',content:text});
-
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'content-type':'application/json','x-api-key':apiKey,
@@ -1411,7 +1568,6 @@ async function sendMsg(){
     const data=await res.json();
     removeTyping();
     if(data.error){ addBubble('assistant','❌ '+(data.error.message||'Σφάλμα API')); document.getElementById('sendBtn').disabled=false; return; }
-
     let reply='Δεν μπόρεσα να απαντήσω.';
     if(data.content){ for(let i=0;i<data.content.length;i++){ if(data.content[i].type==='text'){ reply=data.content[i].text; break; } } }
     let out=reply;
@@ -1419,9 +1575,11 @@ async function sendMsg(){
     const pm=reply.match(/ADD_PAY:(\{[\s\S]*?\})/);
     if(pm){ try{
       const p=JSON.parse(pm[1]);
-      const cat=resolveCat(p.category||'άλλο', payCategories())||'άλλο';
+      const canon=payCategories();
+      let cats=dedupeCats(splitCats(p.cats!==undefined?p.cats:p.category).map(function(c){return resolveCat(c,canon)||c;}));
+      if(!cats.length) cats=['άλλο'];
       DB.pay.push({id:genId(),title:p.title||'Νέα',amount:parseFloat(p.amount)||0,
-        category:cat,dueDate:p.dueDate||todayStr(),repeat:p.repeat||'none',
+        cats:cats,dueDate:p.dueDate||todayStr(),repeat:p.repeat||'none',
         notes:p.notes||'',paid:false,paidAt:null,createdAt:new Date().toISOString()});
       persist(); renderPay();
       out=out.replace(/ADD_PAY:[\s\S]*$/,'').trim()||'✅ Καταχωρήθηκε στις Πληρωμές.';
@@ -1435,14 +1593,15 @@ async function sendMsg(){
         const dd=new Date(n.remindAt);
         if(!isNaN(dd.getTime())) rAt=dd.toISOString();
       }
-      const cat=(n.category||'').trim() ? resolveCat(n.category, noteCategories()) : null;
-      const note={id:genId(),title:n.title||'',body:n.body||'',
-        category:cat,remindAt:rAt,remindFired:false,calId:null,
+      const canon=noteCategories();
+      const cats=dedupeCats(splitCats(n.cats!==undefined?n.cats:n.category).map(function(c){return resolveCat(c,canon)||c;}));
+      const note={id:genId(),title:n.title||'',body:n.body||'',cats:cats,
+        remindAt:rAt,remindFired:false,calId:null,
         createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
       DB.notes.push(note);
       persist(); renderNotes();
       if(rAt) calUpsert(note);
-      const extra = rAt ? (' 🔔 '+fmtDT(rAt)+(calEnabled?' · 📅 Ημερολόγιο':'')) : '';
+      const extra = rAt ? (' 🔔 '+fmtDT(rAt)+(calEnabled?' · 📅':'')) : '';
       out=(out.replace(/ADD_NOTE:[\s\S]*$/,'').trim()||'✅ Καταχωρήθηκε στις Σημειώσεις.')+extra;
     }catch(e){} }
 
@@ -1460,22 +1619,19 @@ function sq(t){document.getElementById('chatInput').value=t;sendMsg();}
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
 
-['payModal','noteModal'].forEach(function(id){
+['payModal','noteModal','pickModal','mgrModal','filtModal'].forEach(function(id){
   document.getElementById(id).addEventListener('click',function(e){ if(e.target.id===id) closeModal(id); });
 });
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeSearch(); });
 
-// ══════ INIT ══════
 function init(){
   loadLocal();
   migrateCats();
   renderAll();
   updateDriveUI();
   initGoogle();
-
   if('Notification' in window && Notification.permission==='granted')
     document.getElementById('notifStatus').textContent='✅ Οι ειδοποιήσεις είναι ενεργές.';
-
   checkReminders();
   remindTimer=setInterval(checkReminders,30000);
 
@@ -1488,17 +1644,16 @@ function init(){
       '_"ΔΕΗ 145 ευρώ στις 25 Σεπτεμβρίου"_ → Πληρωμές\n'+
       '_"Ενοίκιο 400 κάθε μήνα στις 5"_ → επαναλαμβανόμενη\n'+
       '_"Να καλέσω τον λογιστή αύριο στις 3"_ → Σημείωση με υπενθύμιση 🔔\n\n'+
-      'Στη **Σύνοψη** βλέπεις τι έρχεται σε μήνα, τρίμηνο, εξάμηνο ή έτος.';
+      'Κάθε εγγραφή δέχεται **πολλές κατηγορίες**. Καρφίτσωσε όσες θες με 📌 από τις Ρυθμίσεις.';
     addBubble('assistant',w);
     chatHistory.push({role:'assistant',content:w});
     saveChat();
   }
-
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('sw.js').catch(function(){});
     navigator.serviceWorker.addEventListener('message', function(e){
       if(e.data && e.data.type==='open-note' && e.data.id){
-        switchTab('notes'); flashId=e.data.id; renderNotes();
+        switchTab('notes'); noteCatFilter='all'; flashId=e.data.id; renderNotes();
       }
     });
   }
