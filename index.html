@@ -339,7 +339,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
       </div>
 
       <div style="text-align:center;font-size:10px;color:var(--txt3);padding:8px 0 20px;font-family:'JetBrains Mono',monospace;">
-        Προσωπικός Agent · v7.1
+        Προσωπικός Agent · v7.2
       </div>
     </div>
   </div>
@@ -384,7 +384,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
     <div class="catbox" id="nm_catbox" onclick="openPicker('nm')"></div></div>
   <div class="frow"><label>Υπενθύμιση (προαιρετικό)</label><input type="datetime-local" id="nm_remind">
     <div class="hint" id="nm_calhint"></div></div>
-  <div class="frow"><label>Κείμενο</label><textarea id="nm_body" placeholder="Γράψε ό,τι θέλεις…" style="min-height:120px;"></textarea></div>
+  <div class="frow"><label>Κείμενο</label><textarea id="nm_body" placeholder="Γράψε ό,τι θέλεις…" style="min-height:120px;" oninput="growBox(this)"></textarea></div>
   <div class="modal-acts"><button class="btn-sec" onclick="closeModal('noteModal')">Ακύρωση</button>
     <button class="btn-pri" onclick="saveNote()">💾 Αποθήκευση</button></div>
 </div></div>
@@ -1235,6 +1235,14 @@ function renderNotes(){
   }).join('');
   doFlash();
 }
+// Μεγαλώνει το πεδίο όσο χρειάζεται για να φαίνεται όλο το κείμενο,
+// χωρίς να ξεπερνά το ύψος της οθόνης.
+function growBox(el){
+  el.style.height='auto';
+  const max=Math.round(window.innerHeight*0.45);
+  el.style.height=Math.min(el.scrollHeight+2, max)+'px';
+  el.style.overflowY = (el.scrollHeight+2>max) ? 'auto' : 'hidden';
+}
 function openNoteModal(id){
   const n=id?DB.notes.filter(function(o){return o.id===id;})[0]:null;
   document.getElementById('noteModalTitle').textContent=n?'✏️ Επεξεργασία':'📝 Νέα Σημείωση';
@@ -1253,6 +1261,8 @@ function openNoteModal(id){
     ? '📅 Μπαίνει και στο Google Calendar — χτυπάει το κινητό ακόμα κι αν η εφαρμογή είναι κλειστή.'
     : '⚠️ Το Ημερολόγιο είναι κλειστό. Η ειδοποίηση θα έρθει μόνο όσο η εφαρμογή είναι ανοιχτή.';
   document.getElementById('noteModal').classList.add('open');
+  // αφού γίνει ορατό, αλλιώς το scrollHeight είναι 0
+  setTimeout(function(){ growBox(document.getElementById('nm_body')); },30);
 }
 function saveNote(){
   const id=document.getElementById('nm_id').value;
