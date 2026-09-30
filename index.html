@@ -15,7 +15,7 @@
 :root{
   --bg:#0e0f13; --s1:#15161c; --s2:#1c1d25; --s3:#23242f; --border:#2c2e3d;
   --acc:#5b6ef5; --acc2:#8b5cf6; --danger:#ef4444; --warn:#f59e0b; --ok:#10b981;
-  --txt:#e4e6f0; --txt2:#9ca3af; --txt3:#5a5f7a; --r:10px; --r2:7px;
+  --txt:#f4f6fd; --txt2:#c3c9db; --txt3:#949cba; --r:10px; --r2:7px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;
@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
 
 .tabbar{display:flex;background:var(--s1);border-bottom:1px solid var(--border);flex-shrink:0;}
-.tab{flex:1;padding:8px 3px;text-align:center;font-size:10px;font-weight:500;color:var(--txt3);cursor:pointer;border-bottom:2px solid transparent;user-select:none;}
+.tab{flex:1;padding:8px 3px;text-align:center;font-size:10.5px;font-weight:600;color:var(--txt2);cursor:pointer;border-bottom:2px solid transparent;user-select:none;}
 .tab.active{color:var(--acc);border-bottom-color:var(--acc);}
 .tab-icon{display:block;font-size:16px;margin-bottom:1px;}
 
@@ -72,13 +72,13 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;
 @keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-6px);opacity:1}}
 
 .pay-toprow{display:flex;gap:7px;padding:12px 12px 0;flex-wrap:wrap;flex-shrink:0;}
-.summary-pill{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:5px 12px;font-size:11px;color:var(--txt2);}
+.summary-pill{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:5px 12px;font-size:12px;color:var(--txt2);font-weight:500;}
 .summary-pill strong{color:var(--txt);font-weight:600;}
 .summary-pill.red strong{color:var(--danger);} .summary-pill.yellow strong{color:var(--warn);}
 .filter-row{display:flex;gap:6px;padding:9px 12px 0;flex-shrink:0;overflow-x:auto;align-items:center;}
 .filter-row::-webkit-scrollbar{display:none;}
 @media (min-width:700px){ .filter-row{flex-wrap:wrap;overflow-x:visible;} }
-.filt{background:var(--s2);border:1px solid var(--border);border-radius:15px;padding:4px 12px;font-size:11px;color:var(--txt3);cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.filt{background:var(--s2);border:1px solid var(--border);border-radius:15px;padding:5px 12px;font-size:11.5px;color:var(--txt2);font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .filt.active{background:var(--acc);border-color:var(--acc);color:#fff;}
 .filt.more{border-style:dashed;color:var(--txt2);}
 
@@ -94,16 +94,16 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;
 .ob-amt{font-size:14px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--acc);white-space:nowrap;}
 .ob-card.overdue .ob-amt{color:var(--danger);} .ob-card.soon .ob-amt{color:var(--warn);}
 .ob-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
-.ob-date{font-size:11px;color:var(--txt3);font-family:'JetBrains Mono',monospace;}
+.ob-date{font-size:11.5px;color:var(--txt3);font-weight:500;font-family:'JetBrains Mono',monospace;}
 .ob-days{font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;margin-left:auto;}
 .ob-days.red{color:var(--danger);} .ob-days.yellow{color:var(--warn);} .ob-days.green{color:var(--ok);}
 .ob-actions{display:flex;gap:5px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);flex-wrap:wrap;}
-.act-btn{flex:1;min-width:74px;padding:6px 8px;border-radius:6px;font-size:10.5px;font-weight:500;border:1px solid var(--border);background:var(--s3);color:var(--txt2);cursor:pointer;font-family:'Inter',sans-serif;}
+.act-btn{flex:1;min-width:74px;padding:7px 8px;border-radius:6px;font-size:11.5px;font-weight:500;border:1px solid var(--border);background:var(--s3);color:var(--txt2);cursor:pointer;font-family:'Inter',sans-serif;}
 
 .tagrow{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:6px;}
-.cat-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(91,110,245,.14);color:#818cf8;border:1px solid rgba(91,110,245,.3);}
+.cat-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px;background:rgba(91,110,245,.14);color:#818cf8;border:1px solid rgba(91,110,245,.3);}
 .cat-tag.first{background:rgba(91,110,245,.26);font-weight:600;}
-.remind-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.3);font-family:'JetBrains Mono',monospace;}
+.remind-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px;background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.3);font-family:'JetBrains Mono',monospace;}
 .cal-tag{font-size:10px;padding:2px 9px;border-radius:10px;background:rgba(16,185,129,.12);color:#34d399;border:1px solid rgba(16,185,129,.3);}
 
 .note-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:8px;}
@@ -111,8 +111,8 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;
 .note-card.remind-due{border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.04);}
 .note-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;}
 .note-title{font-size:13px;font-weight:500;}
-.note-date{font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace;white-space:nowrap;}
-.note-body{font-size:12px;color:var(--txt2);line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;}
+.note-date{font-size:11px;color:var(--txt3);font-weight:500;font-family:'JetBrains Mono',monospace;white-space:nowrap;}
+.note-body{font-size:13px;color:var(--txt2);line-height:1.6;font-weight:400;white-space:pre-wrap;overflow-wrap:anywhere;}
 .note-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;}
 
 .sec-head{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 9px;flex-shrink:0;gap:8px;}
@@ -133,23 +133,23 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;
 .res-group h4{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
 .res-item{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);padding:10px 12px;margin-bottom:6px;cursor:pointer;}
 .res-title{font-size:13px;font-weight:500;margin-bottom:3px;}
-.res-sub{font-size:11px;color:var(--txt3);line-height:1.45;}
+.res-sub{font-size:11.5px;color:var(--txt2);line-height:1.45;}
 mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;}
 
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px;}
 .stat-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:13px;}
 .stat-card.wide{grid-column:1 / -1;}
 .stat-val{font-size:21px;font-weight:700;font-family:'JetBrains Mono',monospace;}
-.stat-lbl{font-size:10.5px;color:var(--txt3);margin-top:3px;}
+.stat-lbl{font-size:11px;color:var(--txt3);margin-top:3px;font-weight:500;}
 .brk{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
 .brk:last-child{border-bottom:none;}
 .brk-l{color:var(--txt2);} .brk-r{font-family:'JetBrains Mono',monospace;font-weight:600;}
-.brk-sub{font-size:10px;color:var(--txt3);}
+.brk-sub{font-size:11px;color:var(--txt3);font-weight:500;}
 .blk-head{font-size:11px;font-weight:600;color:var(--txt2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;}
 
 .setting-block{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:13px;margin-bottom:10px;}
 .setting-block h4{font-size:12px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:7px;}
-.setting-block p{font-size:11px;color:var(--txt3);line-height:1.5;margin-bottom:10px;}
+.setting-block p{font-size:12px;color:var(--txt3);line-height:1.5;margin-bottom:10px;}
 .wide-btn{width:100%;padding:10px;border-radius:var(--r2);font-size:12.5px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;border:1px solid var(--border);background:var(--s3);color:var(--txt);}
 .wide-btn.primary{background:var(--acc);border-color:var(--acc);color:#fff;}
 .wide-btn.danger{color:var(--danger);border-color:rgba(239,68,68,.35);}
@@ -177,7 +177,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
 .modal-acts{display:flex;gap:8px;margin-top:16px;}
 .btn-pri{flex:1;padding:11px;background:var(--acc);border:none;border-radius:var(--r2);color:#fff;font-size:13.5px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
 .btn-sec{padding:11px 18px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);color:var(--txt2);font-size:13.5px;cursor:pointer;font-family:'Inter',sans-serif;}
-.hint{font-size:10.5px;color:var(--txt3);margin-top:5px;line-height:1.45;}
+.hint{font-size:11.5px;color:var(--txt3);margin-top:5px;line-height:1.45;}
 
 /* επιλογέας κατηγοριών */
 .catbox{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);padding:9px 10px;min-height:44px;cursor:pointer;display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
@@ -191,9 +191,26 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
 .pick.sel .pick-box{background:var(--acc);border-color:var(--acc);}
 .pick-name{flex:1;font-size:13px;}
 .pick-num{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--acc);background:rgba(91,110,245,.16);border-radius:9px;padding:2px 7px;}
-.pick-cnt{font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace;}
+.pick-cnt{font-size:11px;color:var(--txt3);font-weight:600;font-family:'JetBrains Mono',monospace;}
 .mini{width:28px;height:28px;border:1px solid var(--border);background:var(--s3);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;flex-shrink:0;}
 .mini.on{border-color:var(--acc);background:rgba(91,110,245,.18);}
+
+/* ξυπνητήρι */
+.alarm{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;padding:18px;
+  background:rgba(8,9,12,.92);backdrop-filter:blur(6px);}
+.alarm.on{display:flex;}
+.alarm-card{background:var(--s1);border:2px solid var(--warn);border-radius:18px;padding:26px 22px;
+  width:380px;max-width:100%;text-align:center;box-shadow:0 0 0 6px rgba(245,158,11,.12);}
+.alarm-bell{font-size:52px;line-height:1;margin-bottom:12px;animation:shake .9s ease-in-out infinite;}
+@keyframes shake{0%,100%{transform:rotate(0)}15%{transform:rotate(16deg)}30%{transform:rotate(-14deg)}45%{transform:rotate(10deg)}60%{transform:rotate(-7deg)}75%{transform:rotate(3deg)}}
+.alarm-title{font-size:19px;font-weight:700;margin-bottom:8px;}
+.alarm-body{font-size:13.5px;color:var(--txt2);line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;
+  max-height:30dvh;overflow-y:auto;margin-bottom:10px;}
+.alarm-sub{font-size:11px;color:var(--txt3);font-family:'JetBrains Mono',monospace;margin-bottom:18px;}
+.alarm-ok{width:100%;padding:14px;border:none;border-radius:10px;background:var(--warn);color:#1a1200;
+  font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+.alarm-snooze{width:100%;padding:11px;margin-top:8px;border:1px solid var(--border);border-radius:10px;
+  background:var(--s2);color:var(--txt2);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;}
 
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:9px 18px;font-size:12px;color:var(--txt);z-index:500;opacity:0;transition:all .3s;pointer-events:none;max-width:90vw;text-align:center;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
@@ -339,7 +356,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
       </div>
 
       <div style="text-align:center;font-size:10px;color:var(--txt3);padding:8px 0 20px;font-family:'JetBrains Mono',monospace;">
-        Προσωπικός Agent · v7.2
+        Προσωπικός Agent · v7.3
       </div>
     </div>
   </div>
@@ -416,6 +433,17 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
     <button class="btn-pri" onclick="closeModal('filtModal')">Κλείσιμο</button></div>
 </div></div>
 
+<div class="alarm" id="alarmBox">
+  <div class="alarm-card">
+    <div class="alarm-bell">🔔</div>
+    <div class="alarm-title" id="alarmTitle">Υπενθύμιση</div>
+    <div class="alarm-body" id="alarmBody"></div>
+    <div class="alarm-sub" id="alarmSub"></div>
+    <button class="alarm-ok" onclick="stopAlarm(true)">✓ Το είδα</button>
+    <button class="alarm-snooze" onclick="snoozeAlarm()">⏰ Θύμισέ μου σε 10 λεπτά</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -425,6 +453,9 @@ const DRIVE_FILENAME   = 'personal-agent-data.json';
 const CLAUDE_MODEL     = 'claude-sonnet-4-6';
 const AUTOSYNC_MS      = 30000;
 const MAX_PINNED       = 5;
+const ALARM_SECONDS    = 20;   // πόσο χτυπάει κάθε φορά
+const SNOOZE_MIN       = 10;   // κάθε πόσα λεπτά ξαναχτυπάει
+const ALARM_REPEATS    = 2;    // πόσες επαναληπτικές μετά την πρώτη
 const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/calendar.events';
 
 const LS = { data:'agent_data_v4', chat:'agent_chat_v4', key:'agent_apikey_v4',
@@ -958,22 +989,43 @@ function askNotifPerm(){
     if(p==='granted') toast('✅ Ενεργοποιήθηκαν');
   });
 }
-function beep(){
+// ── ΗΧΟΣ ──
+// Το AudioContext ΠΡΕΠΕΙ να δημιουργηθεί μετά από άγγιγμα του χρήστη,
+// αλλιώς ο browser το κρατάει σε αναστολή και δεν ακούγεται τίποτα.
+// Γι' αυτό το ξεκλειδώνουμε με το πρώτο πάτημα και το κρατάμε ζωντανό.
+let audioCtx=null;
+function unlockAudio(){
   try{
     const C=window.AudioContext||window.webkitAudioContext; if(!C) return;
-    const ctx=new C();
-    [0,0.22].forEach(function(t){
-      const o=ctx.createOscillator(), g=ctx.createGain();
-      o.type='sine'; o.frequency.value=880;
-      g.gain.setValueAtTime(0.0001,ctx.currentTime+t);
-      g.gain.exponentialRampToValueAtTime(0.35,ctx.currentTime+t+0.02);
-      g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+t+0.18);
-      o.connect(g); g.connect(ctx.destination);
-      o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+0.2);
-    });
-    setTimeout(function(){ try{ctx.close();}catch(e){} },900);
+    if(!audioCtx) audioCtx=new C();
+    if(audioCtx.state==='suspended') audioCtx.resume();
+    const b=audioCtx.createBuffer(1,1,22050);
+    const s=audioCtx.createBufferSource();
+    s.buffer=b; s.connect(audioCtx.destination); s.start(0);
   }catch(e){}
 }
+['pointerdown','touchstart','keydown'].forEach(function(ev){
+  document.addEventListener(ev, unlockAudio, {once:false, passive:true});
+});
+
+// Ένα «κουδούνισμα»: τρία γρήγορα μπιπ, σαν ξυπνητήρι
+function ringOnce(){
+  if(!audioCtx) return;
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  const t0=audioCtx.currentTime;
+  [0,0.18,0.36].forEach(function(off){
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='square';
+    o.frequency.setValueAtTime(1046, t0+off);
+    o.frequency.setValueAtTime(784,  t0+off+0.07);
+    g.gain.setValueAtTime(0.0001, t0+off);
+    g.gain.exponentialRampToValueAtTime(0.5, t0+off+0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+off+0.15);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(t0+off); o.stop(t0+off+0.16);
+  });
+}
+function beep(){ ringOnce(); }
 function fireNotification(title, body, tag){
   const opts={ body:body, icon:'icon-192.png', badge:'icon-192.png', tag:tag,
     renotify:true, requireInteraction:true, vibrate:[300,120,300,120,300] };
@@ -987,23 +1039,80 @@ function fireNotification(title, body, tag){
   beep();
 }
 function testNotif(){
-  if(!('Notification' in window) || Notification.permission!=='granted'){
-    toast('Ενεργοποίησε πρώτα τις ειδοποιήσεις'); return;
+  unlockAudio();
+  startAlarm({id:'__test',title:'Δοκιμή ξυπνητηριού',
+    body:'Έτσι θα χτυπάει όταν φτάσει η ώρα μιας υπενθύμισης.\nΘα ηχεί '+ALARM_SECONDS+
+         ' δευτερόλεπτα και θα επαναλαμβάνεται '+ALARM_REPEATS+' φορές ανά '+SNOOZE_MIN+' λεπτά.',
+    remindAt:new Date().toISOString()}, 1);
+}
+// ── ΞΥΠΝΗΤΗΡΙ ──
+let alarmTimer=null, alarmEnd=0, alarmNote=null;
+function startAlarm(note, round){
+  stopAlarm(false);
+  alarmNote=note;
+  document.getElementById('alarmTitle').textContent = note.title||'Υπενθύμιση';
+  document.getElementById('alarmBody').textContent  = note.body||'';
+  document.getElementById('alarmSub').textContent   =
+    (round>1 ? 'Επανάληψη '+(round-1)+' από '+ALARM_REPEATS+' · ' : '') + fmtDT(note.remindAt);
+  document.getElementById('alarmBox').classList.add('on');
+  fireNotification(note.title||'Υπενθύμιση', (note.body||'').slice(0,120), note.id);
+  alarmEnd=Date.now()+ALARM_SECONDS*1000;
+  ringOnce();
+  if(navigator.vibrate) try{ navigator.vibrate([400,200,400,200,400]); }catch(e){}
+  alarmTimer=setInterval(function(){
+    if(Date.now()>=alarmEnd){ stopAlarm(false); return; }
+    ringOnce();
+    if(navigator.vibrate) try{ navigator.vibrate([400,200,400]); }catch(e){}
+  }, 1300);
+}
+function stopAlarm(hide){
+  clearInterval(alarmTimer); alarmTimer=null; alarmEnd=0;
+  if(navigator.vibrate) try{ navigator.vibrate(0); }catch(e){}
+  if(hide!==false){
+    document.getElementById('alarmBox').classList.remove('on');
+    if(alarmNote){                       // «Το είδα» → τέλος επαναλήψεων
+      const n=DB.notes.filter(function(o){return o.id===alarmNote.id;})[0];
+      if(n){ n.remindDone=true; n.remindFired=true; persist(); renderNotes(); }
+      alarmNote=null;
+    }
   }
-  fireNotification('Δοκιμή','Αν το βλέπεις και το ακούς, δουλεύει.','test');
-  toast('Στάλθηκε δοκιμαστική ειδοποίηση');
+}
+function snoozeAlarm(){
+  clearInterval(alarmTimer); alarmTimer=null;
+  if(navigator.vibrate) try{ navigator.vibrate(0); }catch(e){}
+  document.getElementById('alarmBox').classList.remove('on');
+  if(alarmNote){
+    const n=DB.notes.filter(function(o){return o.id===alarmNote.id;})[0];
+    if(n){
+      n.remindAt=new Date(Date.now()+SNOOZE_MIN*60000).toISOString();
+      n.remindRound=0; n.remindDone=false; n.remindFired=false;
+      persist(); renderNotes(); calUpsert(n);
+      toast('⏰ Ξανά στις '+fmtDT(n.remindAt), 3500);
+    }
+    alarmNote=null;
+  }
 }
 function checkReminders(){
+  if(alarmTimer) return;                 // ήδη χτυπάει — μην ξεκινήσεις άλλο
   const now=Date.now();
-  let changed=false;
+  let changed=false, fire=null, fireRound=0;
   DB.notes.forEach(function(n){
-    if(!n.remindAt || n.remindFired) return;
-    if(new Date(n.remindAt).getTime()<=now){
-      n.remindFired=true; changed=true;
-      fireNotification(n.title||'Υπενθύμιση', (n.body||'').slice(0,120), n.id);
-      toast('🔔 '+(n.title||'Υπενθύμιση'), 5000);
-    }
+    if(!n.remindAt || n.remindDone) return;
+    const base=new Date(n.remindAt).getTime();
+    const round=n.remindRound||0;                 // πόσες φορές χτύπησε ήδη
+    if(round>ALARM_REPEATS){ n.remindDone=true; changed=true; return; }
+    const dueAt=base + round*SNOOZE_MIN*60000;    // 1η στην ώρα, μετά ανά 10'
+    if(now>=dueAt && !fire){ fire=n; fireRound=round+1; }
   });
+  if(fire){
+    fire.remindRound=fireRound;
+    fire.remindFired=true;
+    // αν άνοιξε πολύ αργά η εφαρμογή, μη χτυπήσει και τις υπόλοιπες μαζεμένα
+    const late = now - new Date(fire.remindAt).getTime() > (ALARM_REPEATS+1)*SNOOZE_MIN*60000;
+    if(fireRound>ALARM_REPEATS || late) fire.remindDone=true;
+    changed=true;
+    startAlarm(fire, fireRound);
+  }
   if(changed){ persist(); renderNotes(); }
 }
 
@@ -1277,6 +1386,8 @@ function saveNote(){
     body:body, cats:dedupeCats(pickSel.slice()),
     remindAt:remindAt,
     remindFired: (remindAt && sameRemind) ? prev.remindFired : false,
+    remindRound: (remindAt && sameRemind) ? (prev.remindRound||0) : 0,
+    remindDone:  (remindAt && sameRemind) ? !!prev.remindDone   : false,
     calId: prev?prev.calId:null,
     createdAt:prev?prev.createdAt:new Date().toISOString(),
     updatedAt:new Date().toISOString()};
@@ -1602,7 +1713,7 @@ async function sendMsg(){
       const canon=noteCategories();
       const cats=dedupeCats(splitCats(n.cats!==undefined?n.cats:n.category).map(function(c){return resolveCat(c,canon)||c;}));
       const note={id:genId(),title:n.title||'',body:n.body||'',cats:cats,
-        remindAt:rAt,remindFired:false,calId:null,
+        remindAt:rAt,remindFired:false,remindRound:0,remindDone:false,calId:null,
         createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
       DB.notes.push(note);
       persist(); renderNotes();
@@ -1639,7 +1750,7 @@ function init(){
   if('Notification' in window && Notification.permission==='granted')
     document.getElementById('notifStatus').textContent='✅ Οι ειδοποιήσεις είναι ενεργές.';
   checkReminders();
-  remindTimer=setInterval(checkReminders,30000);
+  remindTimer=setInterval(checkReminders,15000);
 
   if(chatHistory.length){
     for(let i=0;i<chatHistory.length;i++) addBubble(chatHistory[i].role,chatHistory[i].content,false);

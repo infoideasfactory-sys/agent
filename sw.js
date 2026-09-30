@@ -1,4 +1,4 @@
-const CACHE = 'agent-v7c';
+const CACHE = 'agent-v7d';
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
