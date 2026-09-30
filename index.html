@@ -333,12 +333,13 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
         <h4>🔔 Ειδοποιήσεις</h4>
         <p id="notifStatus">Για να σε ειδοποιεί ο agent όταν φτάνει η ώρα μιας υπενθύμισης.</p>
         <button class="wide-btn primary" onclick="askNotifPerm()">Ενεργοποίηση ειδοποιήσεων</button>
-        <button class="wide-btn" onclick="testNotif()">🔊 Δοκιμή ειδοποίησης</button>
+        <button class="wide-btn" onclick="testNotif()">🔊 Δοκιμή ξυπνητηριού (με ανοιχτή εφαρμογή)</button>
         <div class="switch-row">
           <span>📅 Υπενθυμίσεις στο Google Calendar</span>
           <div class="sw" id="calSw" onclick="toggleCal()"></div>
         </div>
-        <p class="hint" style="margin:0;">Με το Calendar χτυπάει το κινητό <strong>ακόμα κι αν η εφαρμογή είναι κλειστή</strong>.</p>
+        <p class="hint" style="margin:0 0 9px;">Με κλειστή εφαρμογή <strong>μόνο το Ημερολόγιο</strong> μπορεί να σε ειδοποιήσει. Μπαίνουν 3 ειδοποιήσεις: στην ώρα, +10΄ και +20΄.</p>
+        <button class="wide-btn" onclick="testCalendar()">📅 Δοκιμή με κλειστή εφαρμογή</button>
       </div>
 
       <div class="setting-block">
@@ -356,7 +357,7 @@ mark{background:rgba(91,110,245,.32);color:#fff;border-radius:3px;padding:0 2px;
       </div>
 
       <div style="text-align:center;font-size:10px;color:var(--txt3);padding:8px 0 20px;font-family:'JetBrains Mono',monospace;">
-        Προσωπικός Agent · v7.3
+        Προσωπικός Agent · v7.4
       </div>
     </div>
   </div>
@@ -913,39 +914,74 @@ function toggleCal(){
   updateDriveUI();
   toast(calEnabled?'📅 Οι υπενθυμίσεις θα μπαίνουν στο Ημερολόγιο':'Το Ημερολόγιο απενεργοποιήθηκε');
 }
+// Φτιάχνει ΞΕΧΩΡΙΣΤΟ event για κάθε χτύπημα (στην ώρα, +10', +20'),
+// ώστε το κινητό να ειδοποιηθεί και τις τρεις φορές με κλειστή την εφαρμογή.
 async function calUpsert(note){
   if(!calEnabled || !note.remindAt) return;
-  if(!(await ensureToken())) return;
-  const start=new Date(note.remindAt);
-  const end=new Date(start.getTime()+30*60000);
-  const body={
-    summary:'🔔 '+(note.title||'Υπενθύμιση'),
-    description:(note.body||'').slice(0,900)+'\n\n— Προσωπικός Agent',
-    start:{dateTime:start.toISOString()}, end:{dateTime:end.toISOString()},
-    reminders:{useDefault:false, overrides:[{method:'popup',minutes:0}]}
-  };
+  if(!(await ensureToken())){ toast('📅 Σύνδεσου με Google για το Ημερολόγιο'); return; }
+  await calDelete(note);
+  const base=new Date(note.remindAt).getTime();
+  const ids=[];
+  let err=null;
+  for(let i=0;i<=ALARM_REPEATS;i++){
+    const start=new Date(base + i*SNOOZE_MIN*60000);
+    const end=new Date(start.getTime()+10*60000);
+    const tail = i===0 ? '' : '  ('+i+'η υπενθύμιση)';
+    const body={
+      summary:'⏰ '+(note.title||'Υπενθύμιση')+tail,
+      description:(note.body||'').slice(0,900)+'\n\n— Προσωπικός Agent',
+      start:{dateTime:start.toISOString()}, end:{dateTime:end.toISOString()},
+      reminders:{useDefault:false, overrides:[{method:'popup',minutes:0}]}
+    };
+    try{
+      const r=await gFetch('https://www.googleapis.com/calendar/v3/calendars/primary/events',
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const j=await r.json();
+      if(j.id) ids.push(j.id);
+      else if(j.error) err=j.error.message;
+    }catch(e){ err=e.message; }
+  }
+  note.calIds=ids; note.calId=ids[0]||null;
+  saveLocal(false); renderNotes();
+  if(err) toast('📅 '+err, 5000);
+  else if(ids.length) toast('📅 Μπήκαν '+ids.length+' ειδοποιήσεις στο Ημερολόγιο', 3500);
+}
+// Δοκιμαστικό event σε 2 λεπτά — για να δεις αν όντως χτυπάει το κινητό
+async function testCalendar(){
+  if(!(await ensureToken())){ toast('Σύνδεσου πρώτα με Google'); return; }
+  const start=new Date(Date.now()+2*60000);
+  const end=new Date(start.getTime()+10*60000);
   try{
-    if(note.calId){
-      const r=await gFetch('https://www.googleapis.com/calendar/v3/calendars/primary/events/'+encodeURIComponent(note.calId),
-        {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-      if(r.ok) return;
-      note.calId=null;
+    const r=await gFetch('https://www.googleapis.com/calendar/v3/calendars/primary/events',
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        summary:'⏰ Δοκιμή από τον Προσωπικό Agent',
+        description:'Αν το κινητό χτύπησε, το Ημερολόγιο δουλεύει.',
+        start:{dateTime:start.toISOString()}, end:{dateTime:end.toISOString()},
+        reminders:{useDefault:false, overrides:[{method:'popup',minutes:0}]}
+      })});
+    const j=await r.json();
+    if(j.id){
+      alert('✅ Μπήκε στο Ημερολόγιο για '+fmtDT(start.toISOString())+
+        '\n\nΚΛΕΙΣΕ ΤΩΡΑ την εφαρμογή και περίμενε 2 λεπτά.\n'+
+        'Αν δεν χτυπήσει το κινητό, το πρόβλημα είναι στις ρυθμίσεις του Google Calendar στο κινητό, όχι εδώ.');
+    } else {
+      alert('❌ Δεν μπήκε: '+((j.error&&j.error.message)||'άγνωστο σφάλμα')+
+        '\n\nΠιθανόν λείπει η άδεια για το Ημερολόγιο. Πάτα Αποσύνδεση και μετά Σύνδεση με Google.');
     }
-    const r2=await gFetch('https://www.googleapis.com/calendar/v3/calendars/primary/events',
-      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-    const j=await r2.json();
-    if(j.id){ note.calId=j.id; saveLocal(false); renderNotes(); }
-    else if(j.error){ toast('📅 '+(j.error.message||'Σφάλμα Ημερολογίου')); }
-  }catch(e){ toast('📅 '+e.message); }
+  }catch(e){ alert('❌ '+e.message); }
 }
 async function calDelete(note){
-  if(!note || !note.calId) return;
+  if(!note) return;
+  const ids=(note.calIds&&note.calIds.length) ? note.calIds.slice() : (note.calId?[note.calId]:[]);
+  if(!ids.length) return;
   if(!(await ensureToken())) return;
-  try{
-    await gFetch('https://www.googleapis.com/calendar/v3/calendars/primary/events/'+encodeURIComponent(note.calId),
-      {method:'DELETE'});
-  }catch(e){}
-  note.calId=null;
+  for(let i=0;i<ids.length;i++){
+    try{
+      await gFetch('https://www.googleapis.com/calendar/v3/calendars/primary/events/'+encodeURIComponent(ids[i]),
+        {method:'DELETE'});
+    }catch(e){}
+  }
+  note.calIds=[]; note.calId=null;
 }
 
 // ══════ API KEY / BACKUP ══════
@@ -1072,7 +1108,11 @@ function stopAlarm(hide){
     document.getElementById('alarmBox').classList.remove('on');
     if(alarmNote){                       // «Το είδα» → τέλος επαναλήψεων
       const n=DB.notes.filter(function(o){return o.id===alarmNote.id;})[0];
-      if(n){ n.remindDone=true; n.remindFired=true; persist(); renderNotes(); }
+      if(n){
+        n.remindDone=true; n.remindFired=true;
+        calDelete(n).then(function(){ persist(); renderNotes(); });  // και από το Ημερολόγιο
+        persist(); renderNotes();
+      }
       alarmNote=null;
     }
   }
@@ -1334,7 +1374,7 @@ function renderNotes(){
       '<div class="tagrow">'+
         (n.cats||[]).map(function(c){return '<span class="cat-tag">🏷️ '+esc(c)+'</span>';}).join('')+
         (n.remindAt?'<span class="remind-tag">🔔 '+fmtDT(n.remindAt)+'</span>':'')+
-        (n.calId?'<span class="cal-tag">📅</span>':'')+
+        ((n.calIds&&n.calIds.length)?'<span class="cal-tag">📅 '+n.calIds.length+'</span>':(n.calId?'<span class="cal-tag">📅</span>':''))+
       '</div>'+
       '<div class="note-actions">'+
         '<button class="act-btn" onclick="openNoteModal(\''+n.id+'\')">✏️ Αλλαγή</button>'+
@@ -1389,6 +1429,7 @@ function saveNote(){
     remindRound: (remindAt && sameRemind) ? (prev.remindRound||0) : 0,
     remindDone:  (remindAt && sameRemind) ? !!prev.remindDone   : false,
     calId: prev?prev.calId:null,
+    calIds: prev?(prev.calIds||[]):[],
     createdAt:prev?prev.createdAt:new Date().toISOString(),
     updatedAt:new Date().toISOString()};
   if(id) DB.notes=DB.notes.map(function(o){return o.id===id?n:o;}); else DB.notes.push(n);
@@ -1399,12 +1440,12 @@ function saveNote(){
   setTimeout(function(){ renderNotes(); },230);   // αφού φύγει το παράθυρο
   toast(id?'✅ Ενημερώθηκε':'✅ Αποθηκεύτηκε');
   if(remindAt) calUpsert(n);
-  else if(n.calId) calDelete(n).then(function(){ saveLocal(false); renderNotes(); });
+  else if(n.calId||(n.calIds&&n.calIds.length)) calDelete(n).then(function(){ saveLocal(false); renderNotes(); });
 }
 function deleteNote(id){
   if(!confirm('Διαγραφή σημείωσης;'))return;
   const n=DB.notes.filter(function(o){return o.id===id;})[0];
-  if(n && n.calId) calDelete(n);
+  if(n && (n.calId||(n.calIds&&n.calIds.length))) calDelete(n);
   DB.notes=DB.notes.filter(function(o){return o.id!==id;});
   persist(); renderNotes(); toast('🗑️ Διαγράφηκε');
 }
@@ -1713,7 +1754,7 @@ async function sendMsg(){
       const canon=noteCategories();
       const cats=dedupeCats(splitCats(n.cats!==undefined?n.cats:n.category).map(function(c){return resolveCat(c,canon)||c;}));
       const note={id:genId(),title:n.title||'',body:n.body||'',cats:cats,
-        remindAt:rAt,remindFired:false,remindRound:0,remindDone:false,calId:null,
+        remindAt:rAt,remindFired:false,remindRound:0,remindDone:false,calId:null,calIds:[],
         createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
       DB.notes.push(note);
       persist(); renderNotes();
